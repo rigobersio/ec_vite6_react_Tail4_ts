@@ -3,7 +3,6 @@ import { Link as LinkRouter } from 'react-router-dom';
 import { Link as LinkScroll } from 'react-scroll';
 import { FaTimes } from 'react-icons/fa';
 import { CiMenuFries } from 'react-icons/ci';
-import { MdOutlineAddReaction } from 'react-icons/md';
 import { useStore } from '../store/store';
 
 const NavBar: React.FC = () => {
@@ -111,8 +110,11 @@ const NavBar: React.FC = () => {
             <LinkRouter to="/cart" className="nav-item">Carrito</LinkRouter>
             <button className="nav-item">EN</button>
           </div>
-          <div className="-mr-2 flex items-center sm:hidden">
-            <button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500" onClick={handleClick}>
+          <div className="flex sm:hidden mr-2 items-center">
+            <button
+              className="inline-flex items-center justify-center p-2 
+              rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500"
+              onClick={handleClick}>
               {click ? <FaTimes /> : <CiMenuFries />}
             </button>
           </div>

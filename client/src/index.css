@@ -17,29 +17,6 @@ body {
   line-height: 1.6;
 }
 
-/*clases especiales para contenedores principales */
-.contenedor-padding {
-  padding-left: 10%;
-  /* Espacio a la izquierda */
-  padding-right: 10%;
-  /* Espacio a la derecha */
-  padding-top: 100px;
-  /* Espacio arriba */
-  padding-bottom: 100px;
-  /* Espacio abajo */
-}
-
-@media (max-width: 600px) {
-
-  /* Para pantallas pequeñas */
-  .contenedor-padding {
-    padding-left: 5%;
-    /* Espacio a la izquierda reducido */
-    padding-right: 5%;
-    /* Espacio a la derecha reducido */
-  }
-}
-
 /*clase ideal para números en listas*/
 .monospace {
   font-family: "Roboto Mono", monospace;
@@ -130,51 +107,13 @@ hr {
   border: 0;
 }
 
-/* Estilo para los elementos de navegación */
-#navbar .nav-items {
-  display: flex;
-  gap: 2rem;
-  margin-right: 4rem;
-}
-
-#navbar .nav-item {
-  position: relative;
-  cursor: pointer;
-  font-family: "Merriweather", sans-serif;
-  color: #b8847a;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 0 2px;
-  margin: 0 20px;
-  text-align: center;
-  transition: color 0.3s, border-color 0.3s;
-}
-
-#navbar .nav-item::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(to right, #b8847a 0%, #1b3c3e 100%);
-  transition: width 0.2s ease-in-out;
-}
-
-#navbar .nav-item:hover {
-  color: #b8847a;
-}
-
-#navbar .nav-item:hover::after {
-  width: 100%;
-}
-
 /* Estilo del título de la barra */
 #navbar a .nav-title {
   font-family: "Raleway", sans-serif;
   font-weight: 700;
   font-size: 1.4rem;
-  color: #b8847a;
+  color: #ffffff;
+  /* Cambiado a blanco */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   margin: 6px;
   white-space: nowrap;
@@ -182,7 +121,17 @@ hr {
 }
 
 #navbar a:hover .nav-title {
-  color: #1b3c3e;
+  color: #ffffff;
+  /* Cambiado a blanco */
+}
+
+/* Estilo para los enlaces dentro del navbar */
+#navbar a {
+  color: #ffffff;
+}
+
+#navbar a:hover {
+  color: #ffffff;
 }
 
 /* titulo */
@@ -209,4 +158,14 @@ hr {
 .section-title p {
   font-size: 18px;
   margin-top: 20px;
+}
+
+.hidden-sm {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .hidden-sm {
+    display: flex;
+  }
 }
