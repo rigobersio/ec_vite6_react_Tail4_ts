@@ -1,10 +1,11 @@
 import React from 'react';
+import Header from '../components/Header'
 
 const HomePage: React.FC = () => {
   return (
     <div>
-      <h1>Página de Inicio</h1>
-      <p>Bienvenido a nuestra tienda en línea.</p>
+      <Header />
+      <h2>Soy el resto de <strong>Home</strong></h2>
     </div>
   );
 };

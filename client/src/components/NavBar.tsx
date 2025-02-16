@@ -81,41 +81,98 @@ const NavBar: React.FC = () => {
   );
 
   return (
-    <nav id="navbar" className="bg-[#061609] text-white fixed w-full z-10 top-0 shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
-            <div className="flex-shrink-0 flex items-center">
-              <LinkRouter to="/" className="nav-title">E-Commerce</LinkRouter>
-            </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8 nav-items">
-              <LinkRouter to="/" className="nav-item">Inicio</LinkRouter>
-              <LinkRouter to="/products" className="nav-item">Productos</LinkRouter>
-              <LinkRouter to="/about" className="nav-item">Nosotros</LinkRouter>
-              <LinkScroll to="contact" smooth={true} duration={500} className="nav-item">Contacto</LinkScroll>
+    <nav id="navbar" className="fixed w-full h-[var(--nav-height)] z-50 top-0 shadow-xl bg-[#061609]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between gap-4">
+        <div className="flex justify-between w-full">
+          <div className="flex items-center gap-8"> {/* Contenedor principal */}
+            {/* Logo */}
+            <LinkRouter
+              to="/"
+              className="text-2xl font-bold text-[#b8847a] hover:text-[#cac79f] transition-colors"
+            >
+              E-Commerce
+            </LinkRouter>
+
+            {/* Enlaces Desktop */}
+            <div className="hidden md:flex items-center gap-6">
+              <LinkRouter
+                to="/products"
+                className="text-[#f9f9f9] hover:text-[#cac79f] text-sm font-medium transition-colors"
+              >
+                Productos
+              </LinkRouter>
+              <div className="w-px h-6 bg-[#1b3c3e]/40" /> {/* Separador */}
+              <LinkScroll
+                to="contact"
+                smooth
+                className="text-[#f9f9f9] hover:text-[#cac79f] text-sm font-medium transition-colors"
+              >
+                Contacto
+              </LinkScroll>
             </div>
           </div>
-          <div className="hidden sm:ml-6 sm:flex sm:items-center">
+          <div className="hidden sm:flex items-center gap-6 ml-1">
             {user ? (
-              <>
-                <span className="nav-item">Hola, {user}</span>
+              <div className="flex items-center gap-4">
+                {/* Usuario y Menú */}
+                <span className="text-[#f9f9f9] text-sm font-medium hover:text-[#cac79f] transition-colors">
+                  Hola, {user}
+                </span>
+
                 {role === 'admin' && (
-                  <LinkRouter to="/admin" className="nav-item">Admin</LinkRouter>
+                  <LinkRouter
+                    to="/admin"
+                    className="text-[#f9f9f9] text-sm font-medium hover:text-[#b8847a] transition-colors"
+                  >
+                    Admin
+                  </LinkRouter>
                 )}
-                <button onClick={handleLogout} className="nav-item">Cerrar Sesión</button>
-              </>
+
+                <button
+                  onClick={handleLogout}
+                  className="text-[#f9f9f9] text-sm font-medium hover:text-[#1e3a8a] transition-colors"
+                >
+                  Cerrar Sesión
+                </button>
+              </div>
             ) : (
-              <LinkRouter to="/login" className="nav-item">Iniciar Sesión</LinkRouter>
+              <LinkRouter
+                to="/login"
+                className="text-[#f9f9f9] text-sm font-medium hover:text-[#cac79f] transition-colors"
+              >
+                Iniciar Sesión
+              </LinkRouter>
             )}
-            <LinkRouter to="/cart" className="nav-item">Carrito</LinkRouter>
-            <button className="nav-item">EN</button>
+
+            {/* Carrito con indicador */}
+            <LinkRouter
+              to="/cart"
+              className="relative text-[#f9f9f9] hover:text-[#cac79f] transition-colors"
+            >
+              <span className="absolute -top-2 -right-2 bg-[#b8847a] text-[#061609] text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                3 {/* Número dinámico */}
+              </span>
+              Carrito
+            </LinkRouter>
+
+            {/* Selector de idioma */}
+            <button className="text-[#f9f9f9] hover:text-[#cac79f] transition-colors px-2 py-1 border border-[#1b3c3e] rounded-lg">
+              EN
+            </button>
           </div>
-          <div className="flex sm:hidden mr-2 items-center">
+          <div className="flex sm:hidden items-center pr-2">
             <button
-              className="inline-flex items-center justify-center p-2 
-              rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500"
-              onClick={handleClick}>
-              {click ? <FaTimes /> : <CiMenuFries />}
+              className="p-2 rounded-lg backdrop-blur-sm bg-[#061609]/50 hover:bg-[#1b3c3e]/80 transition-all duration-300 group"
+              onClick={handleClick}
+            >
+              <div className="relative">
+                {click ? (
+                  <FaTimes className="w-6 h-6 text-[#cac79f] group-hover:text-[#b8847a]" />
+                ) : (
+                  <CiMenuFries className="w-6 h-6 text-[#cac79f] group-hover:text-[#b8847a]" />
+                )}
+                <div className="absolute inset-0 rounded-lg mix-blend-overlay bg-gradient-to-tr from-[#cac79f]/20 to-transparent" />
+              </div>
             </button>
           </div>
         </div>

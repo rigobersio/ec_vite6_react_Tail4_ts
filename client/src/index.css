@@ -1,3 +1,7 @@
+:root {
+  --nav-height: 60px; /* 80px = h-20 en Tailwind */
+}
+
 body,
 html {
   margin: 0;
@@ -107,31 +111,27 @@ hr {
   border: 0;
 }
 
-/* Estilo del título de la barra */
-#navbar a .nav-title {
-  font-family: "Raleway", sans-serif;
-  font-weight: 700;
-  font-size: 1.4rem;
-  color: #ffffff;
-  /* Cambiado a blanco */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 6px;
-  white-space: nowrap;
-  transition: color 200ms ease;
-}
-
-#navbar a:hover .nav-title {
-  color: #ffffff;
-  /* Cambiado a blanco */
-}
-
-/* Estilo para los enlaces dentro del navbar */
+/* nav */
 #navbar a {
-  color: #ffffff;
+  font-family: 'Raleway', sans-serif; /* Fuente ya importada */
+  font-weight: 500; /* Peso base */
+  color: #f9f9f9; /* Blanco principal */
 }
 
 #navbar a:hover {
-  color: #ffffff;
+  color: #cac79f; /* Beige al hover */
+}
+
+/* Título/Logo */
+#navbar .nav-title {
+  font-weight: 700 !important; /* Bold */
+  color: #b8847a !important; /* Marrón claro */
+}
+
+/* Estado activo (página actual) */
+#navbar a.active {
+  font-weight: 600;
+  color: #1b3c3e !important; /* Verde medio */
 }
 
 /* titulo */
