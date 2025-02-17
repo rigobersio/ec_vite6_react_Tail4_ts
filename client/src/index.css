@@ -1,5 +1,12 @@
 :root {
-  --nav-height: 60px; /* 80px = h-20 en Tailwind */
+  --nav-height: 60px;
+  /* 80px = h-20 en Tailwind */
+  --dark-green: #061609;
+  --medium-green: #1b3c3e;
+  --light-brown: #b8847a;
+  --beige: #cac79f;
+  --white: #f9f9f9;
+  --dark-blue: #1e3a8a;
 }
 
 body,
@@ -16,8 +23,8 @@ body {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  color: #061609;
-  background: linear-gradient(to right, #f9f9f9 0%, #cac79f 100%);
+  color: var(--dark-green);
+  background: linear-gradient(to right, var(--white) 0%, var(--beige) 100%);
   line-height: 1.6;
 }
 
@@ -30,7 +37,7 @@ h1 {
   font-family: "Tangerine", system-ui;
   font-weight: 700;
   font-style: normal;
-  color: #1b3c3e;
+  color: var(--medium-green);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 120px;
 
@@ -42,7 +49,7 @@ h2 {
   font-family: "Tangerine", system-ui;
   font-weight: 800;
   font-size: 82px;
-  color: #b8847a;
+  color: var(--light-brown);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -50,7 +57,7 @@ h3 {
   font-family: "Merriweather";
   font-size: 20px;
   font-weight: 600;
-  color: #b8847a;
+  color: var(--light-brown);
 }
 
 h4 {
@@ -59,7 +66,7 @@ h4 {
   font-style: normal;
   font-size: 40px;
   margin: 20px 0;
-  color: #1b3c3e;
+  color: var(--medium-green);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -77,7 +84,7 @@ p {
 }
 
 a {
-  color: #1b3c3e;
+  color: var(--medium-green);
   transition: all 0.3s;
   font-size: 15px;
 }
@@ -85,7 +92,7 @@ a {
 a:hover,
 a:focus {
   text-decoration: none;
-  color: #061609;
+  color: var(--dark-green);
 }
 
 ul,
@@ -106,32 +113,69 @@ hr {
   width: 70px;
   text-align: center;
   position: relative;
-  background: #1b3c3e;
+  background: var(--medium-green);
   margin-bottom: 20px;
   border: 0;
 }
 
 /* nav */
 #navbar a {
-  font-family: 'Raleway', sans-serif; /* Fuente ya importada */
-  font-weight: 500; /* Peso base */
-  color: #f9f9f9; /* Blanco principal */
+  font-family: 'Raleway', sans-serif;
+  /* Fuente ya importada */
+  font-weight: 500;
+  /* Peso base */
+  color: var(--white);
+  /* Blanco principal */
 }
 
 #navbar a:hover {
-  color: #cac79f; /* Beige al hover */
+  color: var(--beige);
+  /* Beige al hover */
+}
+
+/* Estilos base para todos los enlaces de navegación */
+.nav-link {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  color: var(--white);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+}
+
+/* Versión mobile */
+.mobile-nav-link {
+  display: block;
+  width: 100%;
+  padding: 1rem !important;
+  margin: 0.25rem 0;
+  border-radius: 0.5rem;
+}
+
+.nav-link:hover,
+.mobile-nav-link:hover {
+  color: var(--beige);
+}
+
+/* Estado activo */
+.nav-link.active {
+  font-weight: 600;
+  border-bottom: 2px solid var(--light-brown);
 }
 
 /* Título/Logo */
 #navbar .nav-title {
-  font-weight: 700 !important; /* Bold */
-  color: #b8847a !important; /* Marrón claro */
+  font-weight: 700 !important;
+  /* Bold */
+  color: var(--light-brown) !important;
+  /* Marrón claro */
 }
 
 /* Estado activo (página actual) */
 #navbar a.active {
   font-weight: 600;
-  color: #1b3c3e !important; /* Verde medio */
+  color: var(--medium-green) !important;
+  /* Verde medio */
 }
 
 /* titulo */
@@ -147,7 +191,7 @@ hr {
 .section-title h2::after {
   position: absolute;
   content: "";
-  background: linear-gradient(to right, #b8847a 0%, #1b3c3e 100%);
+  background: linear-gradient(to right, var(--light-brown) 0%, var(--medium-green) 100%);
   height: 4px;
   width: 60px;
   bottom: 0;
