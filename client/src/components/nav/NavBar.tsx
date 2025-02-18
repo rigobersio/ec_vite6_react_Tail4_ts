@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link as LinkRouter } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaUser, FaSignInAlt } from 'react-icons/fa';
 import { CiMenuFries } from 'react-icons/ci';
 import { useStore } from '../../store/store';
 import { NavLinkRouter, NavLinkScroll, NavCartButton, LanguageSelector } from './NavComponents';
 import MobileMenu from './MobileMenu';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, role, setUser, setToken, setRole } = useStore();
+  const navigate = useNavigate();
 
   // Manejo de tecla ESC
   useEffect(() => {
@@ -24,14 +24,13 @@ const NavBar: React.FC = () => {
     setToken(null);
     setRole(null);
     setIsMenuOpen(false);
+    navigate('/products');
   };
 
   return (
-    <nav
-      className="fixed w-full h-[var(--nav-height)] z-50 top-0 bg-[var(--dark-green)] border-b border-[var(--medium-green)]"
-    >
+    <nav className="fixed w-full h-[var(--nav-height)] z-50 top-0 bg-[var(--dark-green)] border-b border-[var(--medium-green)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
-
+        
         {/* Logo */}
         <NavLinkRouter to="/products">E-Commerce</NavLinkRouter>
 
@@ -42,7 +41,7 @@ const NavBar: React.FC = () => {
           <NavLinkScroll to="contact">Contacto</NavLinkScroll>
         </div>
 
-        {/* Sección Derecha */}
+        {/* Sección User - Desktop */}
         <div className="hidden md:flex items-center gap-6">
           {user ? (
             <div className="flex items-center gap-4">
@@ -62,18 +61,41 @@ const NavBar: React.FC = () => {
           <LanguageSelector />
         </div>
 
-        {/* Botón Mobile */}
-        <button
-          className="md:hidden p-2 text-[var(--beige)] hover:text-[var(--light-brown)] transition-colors"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
-        >
-          {isMenuOpen ? <FaTimes /> : <CiMenuFries />}
-        </button>
+        {/* Sección User - Mobile */}
+        <div className="flex items-center gap-4 md:hidden">
+          <NavCartButton count={3} mobile />
+          {user ? (
+            <button 
+              onClick={() => navigate('/profile')}
+              className="p-2 text-[var(--beige)] hover:text-[var(--light-brown)]"
+              aria-label="Perfil de usuario"
+            >
+              <FaUser size={20} />
+            </button>
+          ) : (
+            <NavLinkRouter 
+              to="/login" 
+              className="p-2 text-[var(--beige)] hover:text-[var(--light-brown)]"
+              aria-label="Iniciar sesión"
+            >
+              <FaSignInAlt size={20} />
+            </NavLinkRouter>
+          )}
+          <button
+            className="p-2 text-[var(--beige)] hover:text-[var(--light-brown)]"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+          >
+            {isMenuOpen ? <FaTimes size={20} /> : <CiMenuFries size={24} />}
+          </button>
+        </div>
       </div>
 
-      {/* Menú Mobile */}
-      <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MobileMenu 
+        isOpen={isMenuOpen} 
+        onClose={() => setIsMenuOpen(false)}
+        handleLogout={handleLogout}
+      />
     </nav>
   );
 };
