@@ -157,6 +157,38 @@ hr {
   color: var(--beige);
 }
 
+.mobile-nav-link {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--light-brown);
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* Mejora para badges animados */
+.badge {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Ajustes específicos para dark mode */
+@media (prefers-color-scheme: dark) {
+  .nav-link:hover {
+    color: var(--light-brown);
+  }
+}
 /* Estado activo */
 .nav-link.active {
   font-weight: 600;
