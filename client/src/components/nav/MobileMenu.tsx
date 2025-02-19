@@ -23,7 +23,7 @@ const MobileMenu: React.FC<{
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    className="fixed inset-0 z-40 bg-[var(--dark-green)] pt-[var(--nav-height)]"
+                    className="relative inset-0 z-40 bg-[var(--dark-green)] pt-[var(--nav-height)]"
                 >
                     <div className="p-4 space-y-4">
                         {/* Menú principal */}
