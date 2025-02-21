@@ -3,10 +3,16 @@
   /* 80px = h-20 en Tailwind */
   --dark-green: #061609;
   --medium-green: #1b3c3e;
+  --light-green: #2D6B5B;
   --light-brown: #b8847a;
   --beige: #cac79f;
+  --cream: #F4F1E6;
   --white: #f9f9f9;
   --dark-blue: #1e3a8a;
+
+   /* Colores para mejor contraste */
+  --accent-brown: #9C6B5D;
+  --text-dark: #08120C;
 }
 
 body,
