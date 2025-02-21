@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
         </svg>
         <div className="grid lg:grid-cols-4 gap-20 sm:grid-cols-1 p-20">
           <div className="flex flex-col gap-5">
-            <h2 className="text-3xl text-[var(--light-brown)]">Acerca de E-Commerce</h2>
+            <h2>Acerca de E-Commerce</h2>
             <p>
               E-Commerce es una plataforma en línea que permite a los usuarios comprar y vender productos de manera fácil y segura.
             </p>
@@ -76,11 +76,11 @@ const Footer: React.FC = () => {
             </li>
           </div>
           <div className="mb-4 md:mb-0">
-            <h2 className="text-[22px] font-semibold text-[var(--light-brown)] py-2 uppercase">Contacto</h2>
-            <p className="text-[16px] my-4">Correos electrónicos:</p>
-            <li className="my-4 list-none flex items-center">rigoberto.developer@tutanota.com</li>
-            <li className="my-4 list-none flex items-center">devincentisf35@gmail.com</li>
-            <li className="my-4 list-none flex items-center gap-3">
+            <h2>Contacto</h2>
+            <p className="py-1">Correos electrónicos:</p>
+            <li className="py-1 list-none flex items-center">rigoberto.developer@tutanota.com</li>
+            <li className="py-1 list-none flex items-center">devincentisf35@gmail.com</li>
+            <li className="py-1 list-none flex items-center gap-3">
               <FaGithub className="mr-1" />
               <a href="https://github.com/rigobersio/spa_tasks" className="ml-1 text-[var(--beige)] hover:text-[var(--light-brown)] transform hover:scale-150
                              transition-all duration-150 ease-in-out">Repositorio</a>
