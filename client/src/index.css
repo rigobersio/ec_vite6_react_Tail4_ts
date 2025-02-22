@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@import "tailwindcss-animated";
+
 :root {
   --nav-height: 60px;
   /* 80px = h-20 en Tailwind */
@@ -13,6 +16,14 @@
    /* Colores para mejor contraste */
   --accent-brown: #9C6B5D;
   --text-dark: #08120C;
+
+  /* Fuentes */
+  --font-merriweather: 'Merriweather', serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-raleway: 'Raleway', sans-serif;
+  --font-roboto-mono: 'Roboto Mono', monospace;
+  --font-tangerine: 'Tangerine', cursive;
+
 }
 
 body,
@@ -34,94 +45,15 @@ body {
   line-height: 1.6;
 }
 
-/*clase ideal para números en listas*/
-.monospace {
-  font-family: "Roboto Mono", monospace;
-}
 
-h1 {
-  font-family: "Tangerine", system-ui;
-  font-weight: 700;
-  font-style: normal;
-  color: var(--medium-green);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 120px;
-
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-h2 {
-  font-family: "Tangerine", system-ui;
-  font-weight: 800;
-  font-size: 82px;
-  color: var(--light-brown);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-h3 {
-  font-family: "Merriweather";
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--light-brown);
-}
-
-h4 {
-  font-family: "Tangerine", system-ui;
-  font-weight: 700;
-  font-style: normal;
-  font-size: 40px;
-  margin: 20px 0;
-  color: var(--medium-green);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-h5 {
-  font-weight: 700;
-  line-height: 20px;
-}
-
-p {
-  font-size: 15px;
-}
-
-.text-indent {
-  text-indent: 1rem;
-}
-
-a {
-  color: var(--medium-green);
-  transition: all 0.3s;
-  font-size: 15px;
-}
-
-a:hover,
-a:focus {
-  text-decoration: none;
-  color: var(--dark-green);
-}
-
-ul,
-ol {
-  list-style: none;
-  font-family: "Poppins", serif;
-  font-weight: 300;
-  font-style: italic;
-  list-style: none;
-}
-
-li {
-  padding: 5px;
-}
-
-hr {
-  height: 2px;
-  width: 70px;
-  text-align: center;
-  position: relative;
-  background: var(--medium-green);
-  margin-bottom: 20px;
-  border: 0;
+@layer utilities {
+  .font-merriweather { font-family: var(--font-merriweather); }
+  .font-poppins { font-family: var(--font-poppins); }
+  .font-raleway { font-family: var(--font-raleway); }
+  .font-roboto-mono { font-family: var(--font-roboto-mono); }
+  .font-tangerine { font-family: var(--font-tangerine); }
+  
+  .text-indent { text-indent: 1rem;}
 }
 
 /* nav */
