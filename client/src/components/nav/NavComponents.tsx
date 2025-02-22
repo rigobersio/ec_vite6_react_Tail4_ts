@@ -52,7 +52,7 @@ interface CartButtonProps {
 export const NavCartButton = ({ count, mobile = false }: CartButtonProps) => (
   <LinkRouter
     to="/cart"
-    className={`relative ${mobile ? 'p-3 flex items-center gap-2' : 'p-2'} hover:text-[var(--beige)] transition-colors`}
+    className={`relative text-[var(--white)] ${mobile ? 'p-3 flex items-center gap-2' : 'p-2'} hover:text-[var(--beige)] transition-colors`}
     aria-label={`Carrito (${count} items)`}
   >
     <FaShoppingCart className={mobile ? 'w-6 h-6' : 'w-5 h-5'} />
@@ -80,12 +80,12 @@ export const LanguageSelector = ({ mobile }: { mobile?: boolean }) => (
   <button 
     className={`${
       mobile 
-        ? 'flex items-center gap-2 p-3 text-[var(--beige)] hover:bg-[var(--medium-green)] rounded-lg w-full'
-        : 'px-2 py-1 hover:text-[var(--beige)]'
+        ? 'flex items-center gap-2 p-3 text-[var(--beige)] rounded-full w-full'
+        : 'px-2 py-1 text-[var(--beige)]  rounded-full'
     } transition-colors`}
     aria-label="Cambiar idioma"
   >
-    <FaGlobe className={mobile ? 'w-6 h-6' : 'w-5 h-5'} />
+    <FaGlobe className={mobile ? 'w-6 h-6 text-[var(--white)] hover:text-[var(--beige)] transition-colors' : 'w-5 h-5 text-[var(--white)] hover:text-[var(--beige)] transition-colors'} />
     {mobile && <span className="text-[var(--beige)]">Idioma (EN/ES)</span>}
   </button>
 );
