@@ -314,187 +314,373 @@ const handleLogout = () => {
 
 La función `handleLogout` cierra la sesión del usuario, resetea el estado global y navega a la página de productos.
 
-## Renderizado del Componente
+## Retorno del Componente
+
+## Contenedores principales
 
 ```typescript
 return (
   <nav className="fixed w-full h-[var(--nav-height)] z-50 top-0 bg-[var(--dark-green)] border-b border-[var(--medium-green)]">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
-      {/* Logo */}
-      <NavLinkRouter to="/products">E-Commerce</NavLinkRouter>
-
-      {/* Menú Desktop */}
-      <div className="hidden md:flex items-center gap-6">
-        <NavLinkRouter to="/products">Productos</NavLinkRouter>
-        <div className="h-6 w-px bg-[var(--medium-green)]" />
-        <NavLinkScroll to="contact">Contacto</NavLinkScroll>
-      </div>
-
-      {/* Sección User - Desktop */}
-      <div className="hidden md:flex items-center gap-6">
-        {user ? (
-          <div className="flex items-center gap-4">
-            <span className="text-[var(--white)]">Hola, {user}</span>
-            {role === 'admin' && <NavLinkRouter to="/admin">Admin</NavLinkRouter>}
-            <button
-              onClick={handleLogout}
-              className="text-[var(--white)] hover:text-[var(--dark-blue)] transition-colors"
-            >
-              Cerrar Sesión
-            </button>
-          </div>
-        ) : (
-          <NavLinkRouter to="/login">Iniciar Sesión</NavLinkRouter>
-        )}
-        <NavCartButton count={3} />
-        <LanguageSelector />
-      </div>
-
-      {/* Sección User - Mobile */}
-      <div className="flex items-center gap-4 md:hidden">
-        <NavCartButton count={3} mobile />
-        {user ? (
-          <button
-            onClick={() => navigate('/profile')}
-            className="p-2 text-[var(--beige)] hover:text-[var(--light-brown)]"
-            aria-label="Perfil de usuario"
-          >
-            <FaUser size={20} />
-          </button>
-        ) : (
-          <NavLinkRouter
-            to="/login"
-            className="p-2 text-[var(--beige)] hover:text-[var(--light-brown)]"
-            aria-label="Iniciar sesión"
-          >
-            <FaSignInAlt size={20} />
-          </NavLinkRouter>
-        )}
-        <button
-          className="p-2 text-[var(--beige)] hover:text-[var(--light-brown)]"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
-        >
-          {isMenuOpen ? <FaTimes size={20} /> : <CiMenuFries size={24} />}
-        </button>
-      </div>
-    </div>
-
-    <Suspense fallback={<div>Cargando...</div>}>
-      <MobileMenu
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        handleLogout={handleLogout}
-      />
-    </Suspense>
-  </nav>
-);
+     ...
 ```
 
-### Subcomponentes
+### Etiquetas HTML
 
-#### NavLinkRouter
+Son "bloques" que definen partes de una página web, como cajas que contienen cosas:
 
-```typescript
-export const NavLinkRouter = ({ 
-  to, 
-  children, 
-  mobile = false, 
-  onClose, 
-  className = '' 
-}: NavLinkProps) => (
-  <LinkRouter
-    to={to}
-    className={`nav-link ${mobile ? 'mobile-nav-link' : ''} ${className}`}
-    onClick={onClose}
-  >
-    {children}
-  </LinkRouter>
-);
+- `<nav>`: Es una caja especial para menús de navegación (enlaces, logos, botones).
+
+  Ejemplo visual: La barra superior de Netflix con el logo y "Inicio", "Series", "Películas".
+
+- `<div>`: Es una caja genérica para agrupar elementos.
+
+  Ejemplo: Como un recipiente vacío donde pones otros elementos (texto, imágenes).
+
+### Atributo `className`
+
+Es la forma de asignar clases CSS a una etiqueta en React (en HTML normal se usa `class`, pero React usa `className` por razones técnicas). Estas clases definen el estilo visual.
+
+Ejemplo simplificado:
+
+```html
+<div className="fondo-rojo texto-blanco">Hola</div>
 ```
 
-Este subcomponente crea un enlace de navegación utilizando `react-router-dom`.
+Traducción: "Haz que este `div` tenga fondo rojo y texto blanco".
 
-#### NavLinkScroll
+### Análisis más detallado del código (como si fuera una receta)
 
-```typescript
-export const NavLinkScroll = ({ 
-  to, 
-  children, 
-  mobile = false, 
-  onClose, 
-  className = '' 
-}: NavLinkProps) => (
-  <LinkScroll
-    to={to}
-    smooth
-    className={`nav-link ${mobile ? 'mobile-nav-link' : ''} ${className}`}
-    onClick={onClose}
-  >
-    {children}
-  </LinkScroll>
-);
+#### Etiqueta `<nav>` (nuestra "barra pegajosa")
+
+Vamos a desglosar y analizar algunos elementos del código proporcionado, clasificando algunas de las clases de Tailwind CSS y explicando alternativas. Separaremos el análisis en dos partes:
+
+```html
+<nav className="fixed w-full h-[var(--nav-height)] z-50 top-0 bg-[var(--dark-green)] border-b border-[var(--medium-green)]">
 ```
 
-Este subcomponente crea un enlace de navegación que hace scroll suave a una sección específica de la página.
+- **Clase `top`**: La clase `top` se utiliza para controlar la propiedad CSS `top` de un elemento posicionado. Las posiciones de un elemento pueden ser: `relative`, `absolute`, `fixed` y `sticky`. En CSS (y por extensión, en Tailwind CSS) definen cómo se posicionan los elementos en relación con otros elementos y con la ventana del navegador.
 
-#### NavCartButton
+    - `relative`: Se usa para ajustes menores dentro del flujo normal del documento. La clase `relative` posiciona un elemento en relación a su posición normal en el flujo del documento. Cuando aplicas `relative` a un elemento, puedes usar propiedades como `top`, `right`, `bottom`, y `left` para desplazarlo desde su posición original sin afectar el flujo de los elementos circundantes.
+    - `absolute`: Se usa para posicionar elementos de manera precisa dentro de un contenedor. Se posiciona en relación con su ancestro posicionado más cercano (es decir, el ancestro más cercano que no sea `static`). Si no hay ancestros posicionados, se posiciona en relación con el contenedor inicial (la ventana del navegador). Cuando aplicas `absolute` a un elemento, lo sacas del flujo normal del documento.
+    - `fixed`: Se posiciona en relación con la ventana del navegador y no se ve afectado por el desplazamiento de la página.
+    - `sticky`: Se comporta como `relative` hasta que cruza un umbral específico (definido por `top`, `right`, `bottom` o `left`), momento en el cual se comporta como `fixed`.
 
-```typescript
-export const NavCartButton = ({ count, mobile = false }: CartButtonProps) => (
-  <LinkRouter
-    to="/cart"
-    className={`relative text-[var(--white)] ${mobile ? 'p-3 flex items-center gap-2' : 'p-2'} hover:text-[var(--beige)] transition-colors`}
-    aria-label={`Carrito (${count} items)`}
-  >
-    <FaShoppingCart className={mobile ? 'w-6 h-6' : 'w-5 h-5'} />
-    <AnimatePresence>
-      {count > 0 && (
-        <motion.span
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          exit={{ scale: 0 }}
-          className={`absolute ${
-            mobile 
-              ? 'static bg-transparent text-[var(--beige)] text-base'
-              : '-top-1 -right-1 bg-[var(--light-brown)] text-[var(--dark-green)] text-xs'
-          } w-5 h-5 rounded-full flex items-center justify-center font-bold`}
-        >
-          {mobile ? `(${count})` : count}
-        </motion.span>
-      )}
-    </AnimatePresence>
-    {mobile && <span className="text-[var(--beige)]">Carrito</span>}
-  </LinkRouter>
-);
-```
+  Para pantallas no tan anchas, considera ajustar el ancho máximo del contenedor utilizando clases de Tailwind CSS como `max-w-screen-md` o `max-w-screen-sm` para limitar el ancho del contenido y mejorar la legibilidad en dispositivos más pequeños.
 
-Este subcomponente muestra un botón de carrito de compras con un contador de ítems.
+  Los valores de `top` van desde `0` hasta `64` y van agregando `4px` por lo cual un `top-64` son `64 * 4px` de `top`.
 
-#### LanguageSelector
+- **Clase `z`**: Se utiliza para controlar la propiedad `z-index` de un elemento, que determina el orden de apilamiento de los elementos en el eje Z.
 
-```typescript
-export const LanguageSelector = ({ mobile }: { mobile?: boolean }) => (
-  <button 
-    className={`${
-      mobile 
-        ? 'flex items-center gap-2 p-3 text-[var(--beige)] rounded-full w-full'
-        : 'px-2 py-1 text-[var(--beige)]  rounded-full'
-    } transition-colors`}
-    aria-label="Cambiar idioma"
-  >
-    <FaGlobe className={mobile ? 'w-6 h-6 text-[var(--white)] hover:text-[var(--beige)] transition-colors' : 'w-5 h-5 text-[var(--white)] hover:text-[var(--beige)] transition-colors'} />
-    {mobile && <span className="text-[var(--beige)]">Idioma (EN/ES)</span>}
-  </button>
-);
-```
+  - `z-0`: `z-index: 0;`
+  - `z-10`: `z-index: 10;`
+  - `z-20`: `z-index: 20;`
+  - `z-30`: `z-index: 30;`
+  - `z-40`: `z-index: 40;`
+  - `z-50`: `z-index: 50;`
+  - `z-auto`: `z-index: auto;`
 
-Este subcomponente muestra un botón para cambiar el idioma de la aplicación.
 
-## Exportación
+- **Bordes**:
+  - `border`: Añade un borde a un elemento.
+  - `border-t`: Añade un borde superior.
+  - `border-r`: Añade un borde derecho.
+  - `border-b`: Añade un borde inferior.
+  - `border-l`: Añade un borde izquierdo.
 
-```typescript
-export default NavBar;
-```
+- **Eliminar Bordes**:
+  - `border-none`: Elimina todos los bordes.
+  - `border-t-0`: Elimina el borde superior.
+  - `border-r-0`: Elimina el borde derecho.
+  - `border-b-0`: Elimina el borde inferior.
+  - `border-l-0`: Elimina el borde izquierdo.
 
-El componente `NavBar` se exporta como el valor por defecto del módulo.
+- **Grosor del Borde**:
+  - `border-2`: Establece el grosor del borde a 2px.
+  - `border-4`: Establece el grosor del borde a 4px.
+  - `border-8`: Establece el grosor del borde a 8px.
+
+- **Color del Borde**:
+  - `border-gray-500`: Establece el color del borde a gris oscuro.
+  - `border-red-500`: Establece el color del borde a rojo.
+  - `border-blue-500`: Establece el color del borde a azul.
+
+- **Estilo del Borde**:
+  - `border-solid`: Establece el estilo del borde a sólido.
+  - `border-dashed`: Establece el estilo del borde a discontinuo.
+  - `border-dotted`: Establece el estilo del borde a punteado.
+  - `border-double`: Establece el estilo del borde a doble.
+
+- **Radio del Borde (Borde Redondeado)**:
+  - `rounded`: Añade un radio de borde pequeño.
+  - `rounded-lg`: Añade un radio de borde grande.
+  - `rounded-full`: Añade un radio de borde completo (círculo).
+  - `rounded-t`: Añade un radio de borde solo en la parte superior.
+  - `rounded-r`: Añade un radio de borde solo en la parte derecha.
+  - `rounded-b`: Añade un radio de borde solo en la parte inferior.
+  - `rounded-l`: Añade un radio de borde solo en la parte izquierda.
+
+
+2. Etiqueta <div> Interna
+
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
+
+Clases de Tailwind:
+Clase	Explicación	Alternativas	Ejemplo Alternativo	Resultado
+max-w-7xl	Ancho máximo de 80rem (1280px).	max-w-6xl, max-w-full	max-w-6xl (72rem)	Contenedor centrado con ancho limitado
+mx-auto	Margen horizontal automático (centra el div).	ml-auto, mr-4	ml-auto mr-4	Alineación a la derecha con margen
+px-4	Padding horizontal de 1rem (16px).	px-2, px-8	px-2 (8px)	Espaciado interno lateral reducido
+sm:px-6	Padding horizontal de 1.5rem (24px) en pantallas ≥640px.	sm:px-4, md:px-6	md:px-6	Padding adaptable a distintos breakpoints
+lg:px-8	Padding horizontal de 2rem (32px) en pantallas ≥1024px.	lg:px-12, xl:px-16	xl:px-16	Mayor espaciado en pantallas grandes
+h-full	Altura completa (100% del padre <nav>).	h-auto, min-h-20	min-h-20	Altura mínima fija
+flex	Activa el modelo Flexbox.	inline-flex, grid	inline-flex	Contenedor flexible en línea
+justify-between	Distribuye elementos con espacio entre ellos.	justify-around, justify-evenly	justify-around	Espacio uniforme alrededor de los elementos
+items-center	Alinea elementos verticalmente al centro.	items-start, items-baseline	items-start	Alineación superior
+Resultado Final Combinado
+El código genera una barra de navegación:
+
+Posición fija en la parte superior de la pantalla.
+
+Color oscuro personalizado con borde inferior contrastante.
+
+Contenedor interno responsivo que:
+
+Se centra en pantallas grandes (max-w-7xl + mx-auto).
+
+Ajusta el padding lateral según el tamaño de pantalla.
+
+Organiza los elementos hijos (como logo y menú) con espacio entre ellos (justify-between).
+
+Ejemplo Visual:
+
+<!-- Versión con Tailwind nativo (sin variables CSS) -->
+<nav className="fixed w-full h-16 z-50 top-0 bg-green-900 border-b border-green-600">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
+    <!-- Logo y elementos de menú -->
+  </div>
+</nav>
+
+Breakpoints: Tailwind usa sm (640px), md (768px), lg (1024px), xl (1280px). Ajusta los valores según tus necesidades.
+
+Flexbox: Si necesitas alineación compleja, considera grid para layouts de dos dimensiones.
+
+1. ¿Qué son las etiquetas HTML?
+Son "bloques" que definen partes de una página web. Piensa en ellas como cajas que contienen cosas:
+
+<nav>: Es una caja especial para menús de navegación (enlaces, logos, botones).
+
+Ejemplo visual: La barra superior de Netflix con el logo y "Inicio", "Series", "Películas".
+
+<div>: Es una caja genérica para agrupar elementos.
+
+Ejemplo: Como un recipiente vacío donde pones otros elementos (texto, imágenes).
+
+2. ¿Qué es el atributo className?
+Es la forma de asignar clases CSS a una etiqueta en React (en HTML normal se usa class, pero React usa className por razones técnicas). Estas clases definen el estilo visual.
+
+Ejemplo simplificado:
+
+<div className="fondo-rojo texto-blanco">Hola</div>
+
+Traducción: "Haz que este div tenga fondo rojo y texto blanco".
+
+3. Análisis detallado del código (como si fuera una receta)
+a. La etiqueta <nav> (nuestra "barra pegajosa")
+
+<nav className="fixed w-full h-[var(--nav-height)] z-50 top-0 bg-[var(--dark-green)] border-b border-[var(--medium-green)]">
+
+Resultado estético: Imagina una barra como la de Instagram, siempre visible en la parte superior aunque hagas scroll, con color oscuro y una línea brillante abajo.
+
+Parte del código	Explicación para no técnicos	Ejemplo visual
+fixed	"Pega" la barra en la pantalla. No se mueve al hacer scroll.	Como el menú de YouTube que siempre está arriba.
+w-full	Ocupa todo el ancho disponible.	De borde a borde de tu pantalla.
+h-[var(--nav-height)]	Altura personalizada (definida en CSS).	Si --nav-height es 60px, la barra tendrá esa altura.
+z-50	La pone "encima" de otros elementos.	Como poner un post-it sobre una pila de papeles.
+top-0	La pega al borde superior de la pantalla.	Sin espacio entre la barra y el borde de tu navegador.
+bg-[var(--dark-green)]	Color de fondo verde oscuro (personalizado).	Similar al verde de Spotify.
+border-b	Línea delgada en la parte inferior.	Como un subrayado decorativo.
+border-[var(--medium-green)]	Color de la línea (verde más claro).	Brillo sutil, como el borde de un botón "verde menta".
+b. La etiqueta <div> interna (nuestro "contenedor organizado")
+
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
+
+Resultado estético: Imagina el interior de la barra de navegación de Amazon: el logo a la izquierda, los íconos de usuario/carrito a la derecha, todo centrado verticalmente y con espacio a los lados en móviles.
+
+Parte del código	Explicación para no técnicos	Ejemplo visual
+max-w-7xl	Ancho máximo (equivalente a ~1280px).	En pantallas grandes, no se extiende infinitamente.
+mx-auto	Centra el contenido horizontalmente.	Como cuando alineas un texto al centro en Word.
+px-4	Espacio interno a los lados (16px en móviles).	Para que el logo no esté pegado al borde del móvil.
+sm:px-6	Más espacio en tablets (24px).	En una iPad, los lados tienen más "aire".
+lg:px-8	Aún más espacio en pantallas grandes (32px).	En una laptop, el contenido respira mejor.
+h-full	Ocupa toda la altura del <nav>.	Si el nav mide 60px, este div también.
+flex	Organiza los elementos en fila.	Como poner tus lápices en línea sobre la mesa.
+justify-between	Espacio uniforme entre elementos.	Logo a la izquierda, menú a la derecha, con espacio en medio.
+items-center	Centra los elementos verticalmente.	Si el logo es más alto que los botones, ambos quedan alineados al centro.
+
+Fija en la parte superior: No desaparece al hacer scroll.
+
+Color oscuro elegante: Como el fondo de la app de Starbucks.
+
+Borde brillante: Un detalle sutil que la separa del contenido.
+
+Contenido organizado:
+
+Logo a la izquierda.
+
+Menú/Botones a la derecha.
+
+Espaciado responsivo: En el móvil los elementos están cerca de los bordes, en desktop tienen más espacio.
+
+Alternativas para Personalizar (Ejemplos prácticos)
+¿Quieres que la barra sea blanca?
+Cambia bg-[var(--dark-green)] por bg-white.
+
+¿Prefieres que el menú esté centrado?
+Cambia justify-between por justify-center.
+
+¿Sin borde inferior?
+Elimina border-b border-[var(--medium-green)].
+
+¿Barra semitransparente?
+Usa bg-opacity-50 (ejemplo: className="bg-white bg-opacity-50").
+
+Alternativas para border-b (Borde inferior)
+El borde inferior es un detalle estético que separa la barra de navegación del contenido. Aquí tienes opciones para personalizarlo:
+
+Alternativa	Código	Resultado Visual	¿Cuándo usarlo?
+Borde más grueso	border-b-2 o border-b-4	Línea más ancha (ej: 2px o 4px).	Para un efecto más llamativo.
+Borde punteado	border-b border-dashed	Línea con segmentos discontinuos.	Diseños modernos o creativos.
+Borde de color Tailwind	border-b border-green-600	Borde verde intenso (sin variables CSS).	Si usas la paleta de Tailwind.
+Sin borde	Eliminar border-b	Barra sin línea inferior.	Para un look minimalista.
+Sombra en vez de borde	shadow-md	Sombra sutil bajo la barra.	Para dar profundidad sin líneas.
+Borde degradado	border-b-2 bg-gradient-to-r from-green-600 to-blue-600	Borde con efecto degradado.	Diseños vanguardistas.
+Ejemplo con sombra:
+
+<nav className="fixed ... shadow-md"> 
+  <!-- Contenido -->
+</nav>
+
+Resultado: La barra tendrá una sombra suave bajo ella, como la barra superior de Google Docs.
+
+Alternativas para max-w-7xl (Ancho máximo)
+Esta clase limita el ancho del contenedor interno. Algunas opciones:
+
+Alternativa	Código	Tamaño Equivalente	¿Cuándo usarlo?
+Contenedor más pequeño	max-w-6xl	72rem (1152px)	Para páginas con contenido compacto.
+Contenedor full-width	max-w-full	100% del contenedor padre	Si quieres que ocupe todo el ancho disponible.
+Tamaño para pantallas grandes	max-w-screen-xl	~1280px (similar a 7xl)	Si prefieres nombres descriptivos.
+Ancho personalizado	max-w-[90%]	90% del ancho del padre	Para márgenes laterales asimétricos.
+Responsivo	max-w-full lg:max-w-7xl	Full en móvil, 7xl en desktop	Adaptabilidad en distintas pantallas.
+Ejemplo con ancho personalizado:
+
+<div className="max-w-[90%] mx-auto ...">
+  <!-- Logo y menú -->
+</div>
+
+Resultado: El contenido tendrá un 10% de espacio en cada lado, como en la página de inicio de Airbnb.
+
+Combinaciones Creativas 💡
+Ejemplo 1: Barra con borde degradado y contenedor full-width
+
+<nav className="fixed w-full ... border-b-2 bg-gradient-to-r from-green-400 to-blue-500">
+  <div className="max-w-full mx-auto ...">
+    <!-- Logo a la izquierda, menú a la derecha -->
+  </div>
+</nav>
+
+Resultado: Una barra con un borde arcoíris y contenido que toca los bordes de la pantalla.
+
+Ejemplo 2: Barra minimalista sin borde + contenedor pequeño
+
+<nav className="fixed w-full ... shadow-lg">
+  <div className="max-w-6xl mx-auto ...">
+    <!-- Elementos muy juntos, estilo "editorial de lujo" -->
+  </div>
+</nav>
+
+Resultado: Parecido a la barra de navegación de Apple, con sombra pronunciada y contenido centrado.
+
+¿Cómo elegir?
+Para blogs o portfolios: Usa max-w-6xl + border-b-2 border-gray-200 (look limpio y profesional).
+
+Para e-commerce: max-w-full + shadow-xl (para que el contenido llame más la atención).
+
+Para landing pages: max-w-screen-xl + borde degradado (para un efecto wow).
+
+1. Bordes por Lado (Alternativas a border-b)
+Tailwind usa sufijos para indicar la dirección del borde:
+
+Clase	Dirección	Ejemplo Visual
+border-t	Borde superior	Línea en la parte de arriba del elemento
+border-r	Borde derecho	Línea en el lado derecho
+border-b	Borde inferior (el que ya usas)	Línea en la parte de abajo
+border-l	Borde izquierdo	Línea en el lado izquierdo
+border	Borde en todos los lados	Un marco completo alrededor del elemento
+
+
+2. Bordes Redondeados
+Para esquinas curvadas, Tailwind usa rounded-{tamaño} y combinaciones:
+
+Clase	Resultado	Ejemplo Visual
+rounded	Bordes redondeados (equivalente a rounded-md)	Esquinas suavemente curvadas
+rounded-lg	Bordes muy redondeados	Como los botones de iOS
+rounded-full	Bordes circulares (ideal para íconos)	Forma de cápsula o círculo
+rounded-tl-lg	Esquina superior izquierda redondeada	Solo una esquina específica curvada
+rounded-br-none	Elimina el redondeo de la esquina inferior derecha	Útil para diseños asimétricos
+Ejemplo:
+
+<!-- Botón con bordes redondeados -->
+<button className="bg-blue-500 text-white px-4 py-2 rounded-full">
+  Click aquí
+</button>
+
+3. Estilos de Borde (no solo líneas sólidas)
+Tailwind permite cambiar el estilo del borde:
+
+Clase	Estilo	Ejemplo Visual
+border-dashed	Línea segmentada (---)	Borde con pequeños espacios
+border-dotted	Línea punteada (•••)	Puntos pequeños en lugar de línea
+border-double	Línea doble (===)	Dos líneas paralelas
+Ejemplo:
+
+<!-- Div con borde punteado -->
+<div className="border-2 border-dotted border-purple-500 p-4">
+  Este es un contenedor con borde punteado morado.
+</div>
+
+4. Grosor del Borde
+Puedes controlar qué tan grueso es el borde:
+
+Clase	Grosor	Ejemplo Visual
+border	1px (por defecto)	Línea delgada
+border-2	2px	Línea más llamativa
+border-4	4px	Borde grueso (ideal para destacar)
+Ejemplo:
+
+<!-- Borde grueso solo abajo -->
+<div className="border-b-4 border-red-500">
+  ¡Este texto tiene un subrayado rojo y grueso!
+</div>
+
+5. Combinaciones Creativas 🌈
+Ejemplo 1: Tarjeta con borde doble y redondeado
+
+<div className="border-4 border-double rounded-lg border-green-500 p-6">
+  <h2 className="text-xl font-bold">Tarjeta Elegante</h2>
+  <p>Borde doble + esquinas redondeadas.</p>
+</div>
+
+Ejemplo 2: Menú lateral con borde derecho punteado
+
+<nav className="border-r-2 border-dotted border-gray-300 h-screen">
+  <!-- Ítems del menú -->
+</nav>
+
+¿Cuándo usar cada tipo de borde?
+border-b (tu caso actual): Ideal para separar secciones (como tu barra de navegación).
+
+border-dashed: Perfecto para áreas de arrastrar y soltar (ej: subir archivos).
+
+rounded-full: Botones de acción o avatares de usuario.
+
+border-t-4: Para destacar títulos de sección.
