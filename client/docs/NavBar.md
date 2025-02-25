@@ -447,21 +447,7 @@ Vamos a desglosar y analizar algunos elementos del código proporcionado, clasif
 - `w-screen`: Ancho del 100% del viewport.
 
 #### Alto (Height)
-- `h-auto`: Alto automático.
-- `h-1`: Alto de 0.25rem.
-- `h-2`: Alto de 0.5rem.
-- `h-4`: Alto de 1rem.
-- `h-8`: Alto de 2rem.
-- `h-16`: Alto de 4rem.
-- `h-32`: Alto de 8rem.
-- `h-64`: Alto de 16rem.
-- `h-1/2`: Alto del 50% del contenedor.
-- `h-1/3`: Alto del 33.333% del contenedor.
-- `h-2/3`: Alto del 66.666% del contenedor.
-- `h-1/4`: Alto del 25% del contenedor.
-- `h-3/4`: Alto del 75% del contenedor.
-- `h-full`: Alto del 100% del contenedor.
-- `h-screen`: Alto del 100% del viewport.
+- `Lo mismo pero con h`.
 
 ### Ancho Máximo (Max Width)
 - `max-w-none`: Sin ancho máximo.
@@ -510,10 +496,59 @@ Vamos a desglosar y analizar algunos elementos del código proporcionado, clasif
 - `min-h-full`: Alto mínimo del 100% del contenedor.
 - `min-h-screen`: Alto mínimo del 100% del viewport.
 
+Tailwind CSS proporciona una serie de clases utilitarias para trabajar con el modelo de caja flexible (flexbox). Aquí te explico las clases relacionadas con `display`, `flex-direction`, `flex-wrap`, `justify-content`, `align-items` y `align-content`:
 
+### Display
 
+- `flex`: Establece el contenedor como un contenedor flexible (flex container). Esto permite que los elementos hijos se comporten como elementos flexibles (flex items).
+- `inline-flex`: Establece el contenedor como un contenedor flexible en línea (inline flex container). Esto permite que los elementos hijos se comporten como elementos flexibles (flex items) dentro de un contenedor que se comporta como un elemento en línea.
 
+### Flex Direction
 
+- `flex-row`: Establece la dirección de los elementos flexibles en fila (de izquierda a derecha).
+- `flex-row-reverse`: Establece la dirección de los elementos flexibles en fila inversa (de derecha a izquierda).
+- `flex-col`: Establece la dirección de los elementos flexibles en columna (de arriba a abajo).
+- `flex-col-reverse`: Establece la dirección de los elementos flexibles en columna inversa (de abajo a arriba).
 
-Breakpoints: Tailwind usa sm (640px), md (768px), lg (1024px), xl (1280px). Ajusta los valores según tus necesidades.
+### Flex Wrap
 
+- `flex-wrap`: Permite que los elementos flexibles se envuelvan en múltiples líneas.
+- `flex-wrap-reverse`: Permite que los elementos flexibles se envuelvan en múltiples líneas en orden inverso.
+- `flex-nowrap`: Evita que los elementos flexibles se envuelvan y se mantengan en una sola línea.
+
+### Justify Content
+
+- `justify-start`: Alinea los elementos flexibles al inicio del contenedor.
+- `justify-end`: Alinea los elementos flexibles al final del contenedor.
+- `justify-center`: Centra los elementos flexibles en el contenedor.
+- `justify-between`: Distribuye los elementos flexibles con espacio entre ellos.
+- `justify-around`: Distribuye los elementos flexibles con espacio alrededor de ellos.
+- `justify-evenly`: Distribuye los elementos flexibles con espacio igual entre ellos y en los extremos.
+
+### Align Items
+
+- `items-start`: Alinea los elementos flexibles al inicio del contenedor en el eje transversal.
+- `items-end`: Alinea los elementos flexibles al final del contenedor en el eje transversal.
+- `items-center`: Centra los elementos flexibles en el contenedor en el eje transversal.
+- `items-baseline`: Alinea los elementos flexibles según su línea base.
+- `items-stretch`: Estira los elementos flexibles para que ocupen todo el contenedor en el eje transversal.
+
+### Align Content
+
+- `content-start`: Alinea las líneas de elementos flexibles al inicio del contenedor.
+- `content-end`: Alinea las líneas de elementos flexibles al final del contenedor.
+- `content-center`: Centra las líneas de elementos flexibles en el contenedor.
+- `content-between`: Distribuye las líneas de elementos flexibles con espacio entre ellas.
+- `content-around`: Distribuye las líneas de elementos flexibles con espacio alrededor de ellas.
+- `content-evenly`: Distribuye las líneas de elementos flexibles con espacio igual entre ellas y en los extremos.
+
+### Breakpoints en Tailwind CSS
+
+Tailwind CSS utiliza breakpoints para crear diseños responsivos, permitiendo aplicar estilos específicos según el tamaño de la pantalla. Los breakpoints predeterminados son:
+
+- `sm`: 640px y superiores.
+- `md`: 768px y superiores.
+- `lg`: 1024px y superiores.
+- `xl`: 1280px y superiores.
+
+Cada breakpoint incluye los tamaños de pantalla más grandes. Por ejemplo, `sm` se aplica a pantallas de 640px en adelante, incluyendo `md`, `lg`, y `xl`. Puedes ajustar estos valores en la configuración de Tailwind CSS para adaptarlos a las necesidades específicas de tu proyecto.
