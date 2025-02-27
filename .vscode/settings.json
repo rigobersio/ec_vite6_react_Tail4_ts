@@ -1,4 +1,16 @@
 {
     "IDX.aI.enableInlineCompletion": true,
-    "IDX.aI.enableCodebaseIndexing": true
+    "IDX.aI.enableCodebaseIndexing": true,
+    "cSpell.words": [
+        "flexbox",
+        "keydown",
+        "keyup",
+        "manejador",
+        "Manejador",
+        "programáticamente",
+        "renderizada",
+        "resetea",
+        "reutilizables",
+        "Subcomponentes"
+    ]
 }
