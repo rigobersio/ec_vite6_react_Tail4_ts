@@ -926,3 +926,31 @@ Visualmente, se renderiza como una línea vertical así:
 ```plaintext
 Productos | Contacto
 ```
+
+### Comentario final para menú Desktop
+
+Hasta este punto <NavLinkRouter> de E-Commerce y el de Productos son muy similares, por otra parte <NavLinkScroll> aunque es un poco diferente ya es posible entenderlo fácilmente. Finalmente es importante mencionar que el menú **desktop** por defecto no es vicible gracias a la clase tailwind **hidden** pero md:flex lo hace visible a partir de pantallas de 768px.
+
+## Sección User Desktop
+
+```typescript
+{/* Sección User - Desktop */}
+        <div className="hidden md:flex items-center gap-6">
+          {user ? (
+            <div className="flex items-center gap-4">
+              <span className="text-[var(--white)]">Hola, {user}</span>
+              {role === 'admin' && <NavLinkRouter to="/admin">Admin</NavLinkRouter>}
+              <button
+                onClick={handleLogout}
+                className="text-[var(--white)] hover:text-[var(--dark-blue)] transition-colors"
+              >
+                Cerrar Sesión
+              </button>
+            </div>
+          ) : (
+            <NavLinkRouter to="/login">Iniciar Sesión</NavLinkRouter>
+          )}
+          <NavCartButton count={3} />
+          <LanguageSelector />
+        </div>
+```
