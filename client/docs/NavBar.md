@@ -1,8 +1,18 @@
-# Componente NavBar
+<!-- Tabla de Contenido -->
+## Tabla de Contenido
+1. [Importaciones](#importaciones)
+2. [Iconos](#iconos)
+3. [Estado y Hooks](#estado-y-hooks)
+4. [Explicación Detallada del Hook useEffect](#explicación-detallada-del-hook-useeffect)
+5. [Función de Logout](#función-de-logout)
+6. [Retorno del Componente](#retorno-del-componente)
+7. [Sección User Desktop](#sección-user-desktop)
+8. [NavCartButton y LanguageSelector](#navcartbutton-y-languageselector)
+9. [Interfaces en TypeScript](#interfaces-en-typescript)
 
 El componente `NavBar` es un componente de navegación que se encuentra en la parte superior de la aplicación. Proporciona enlaces de navegación tanto para la versión de escritorio como para la versión móvil, y maneja el estado de autenticación del usuario.
 
-## Importaciones
+### Importaciones
 
 ```typescript
 import React, { useState, useEffect, Suspense } from 'react';
@@ -26,7 +36,7 @@ import { useNavigate } from 'react-router-dom';
 - `FaSignInAlt`: Icono de una flecha que apunta hacia adentro, utilizado para el enlace de inicio de sesión.
 - `CiMenuFries`: Icono de un menú de hamburguesa utilizado para abrir el menú móvil.
 
-## Estado y Hooks
+### Estado y Hooks
 
 ```typescript
 const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,9 +48,9 @@ const navigate = useNavigate();
 - `user`, `role`, `setUser`, `setToken`, `setRole`: Estado global del usuario y funciones para actualizarlo.
 - `navigate`: Función para navegar programáticamente.
 
-# Explicación Detallada del Hook `useEffect` para el Menú Móvil
+## Explicación Detallada del Hook `useEffect`
 
-## 🛠️ ¿Qué es un Hook en React?
+### ¿Qué es un Hook en React?
 Imagina que los **hooks** son como herramientas especiales que nos permiten "enganchar" funcionalidades adicionales a nuestros componentes. `useEffect` es una de estas herramientas, y su propósito principal es manejar **acciones secundarias** en nuestro componente.
 
 ### Analogía Cotidiana:
@@ -50,6 +60,7 @@ Piensa en `useEffect` como un **asistente personal** que:
 3. Se mantiene alerta a cambios específicos para actualizar lo necesario
 
 ## 🔍 Análisis del Código del `useEffect`
+
 ```typescript
 useEffect(() => {
   const handleEsc = (e: KeyboardEvent) => e.key === 'Escape' && setIsMenuOpen(false);
@@ -91,6 +102,7 @@ document.addEventListener('keydown', handleEsc);
 - `handleEsc`: Función a ejecutar cuando ocurre el evento
 
 Ejemplo Visual:
+
 ```plaintext
 [Tecla ESC presionada] --> [handleEsc se activa] --> [Menú se cierra]
 ```
@@ -167,6 +179,7 @@ graph TD
   ✅ Usar tipos específicos como `KeyboardEvent`
 
 🔄 Versión Alternativa con Dependencias
+
 ```typescript
 // Ejemplo para cuando necesitas reaccionar a cambios
 useEffect(() => {
@@ -181,9 +194,9 @@ Casos de Uso Típicos:
 
 Información adicional
 
-# Explicación Técnica y Pedagógica del Manejador de Eventos ESC
+## Explicación Técnica y Pedagógica del Manejador de Eventos ESC
 
-## 🕹️ ¿Qué es `keydown`?
+### 🕹️ ¿Qué es `keydown`?
 Es un **tipo de evento** que se dispara cuando una tecla del teclado es presionada. Es parte del sistema de eventos del navegador y funciona así:
 
 | Evento      | Momento de Activación                |
@@ -269,6 +282,7 @@ return () => document.removeEventListener('keydown', handleEsc);
 - Importancia: Evita que múltiples listeners estén activos simultáneamente
 
 Diagrama de Tiempo:
+
 ```plaintext
 sequenceDiagram
   participant Componente
@@ -316,7 +330,7 @@ La función `handleLogout` cierra la sesión del usuario, resetea el estado glob
 
 ## Retorno del Componente
 
-## Contenedores principales
+### Contenedores principales
 
 ```typescript
 return (
@@ -325,7 +339,7 @@ return (
      ...
 ```
 
-### Etiquetas HTML
+#### Etiquetas HTML
 
 Son "bloques" que definen partes de una página web, como cajas que contienen cosas:
 
@@ -337,7 +351,7 @@ Son "bloques" que definen partes de una página web, como cajas que contienen co
 
   Ejemplo: Como un recipiente vacío donde pones otros elementos (texto, imágenes).
 
-### Atributo `className`
+#### Atributo `className`
 
 Es la forma de asignar clases CSS a una etiqueta en React (en HTML normal se usa `class`, pero React usa `className` por razones técnicas). Estas clases definen el estilo visual.
 
@@ -409,7 +423,7 @@ Vamos a desglosar y analizar algunos elementos del código proporcionado, clasif
   - `border-solid`: Establece el estilo del borde a sólido.
   - `border-dashed`: Establece el estilo del borde a discontinuo.
   - `border-dotted`: Establece el estilo del borde a punteado.
-  - `border-double`: Establece el estilo del borde a doble.
+- `border-double`: Establece el estilo del borde a doble.
 
 - **Radio del Borde (Borde Redondeado)**:
   - `rounded`: Añade un radio de borde pequeño.
@@ -421,15 +435,15 @@ Vamos a desglosar y analizar algunos elementos del código proporcionado, clasif
   - `rounded-l`: Añade un radio de borde solo en la parte izquierda.
 
 
-## Etiqueta `<div>` Interna
+#### Etiqueta `<div>` Interna
 
 ```html
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
 ```
 
-### Clases de Tailwind para el Ancho y el Alto
+##### Clases de Tailwind para el Ancho y el Alto
 
-#### Ancho (Width)
+###### Ancho (Width)
 - `w-auto`: Ancho automático.
 - `w-1`: Ancho de 0.25rem.
 - `w-2`: Ancho de 0.5rem.
@@ -446,10 +460,10 @@ Vamos a desglosar y analizar algunos elementos del código proporcionado, clasif
 - `w-full`: Ancho del 100% del contenedor.
 - `w-screen`: Ancho del 100% del viewport.
 
-#### Alto (Height)
+###### Alto (Height)
 - `Lo mismo pero con h`.
 
-### Ancho Máximo (Max Width)
+##### Ancho Máximo (Max Width)
 - `max-w-none`: Sin ancho máximo.
 - `max-w-xs`: Ancho máximo de 20rem.
 - `max-w-sm`: Ancho máximo de 24rem.
@@ -469,7 +483,7 @@ Vamos a desglosar y analizar algunos elementos del código proporcionado, clasif
 - `max-w-screen-xl`: Ancho máximo de 1280px.
 - `max-w-screen-2xl`: Ancho máximo de 1536px.
 
-### Alto Máximo (Max Height)
+##### Alto Máximo (Max Height)
 - `max-h-none`: Sin alto máximo.
 - `max-h-xs`: Alto máximo de 20rem.
 - `max-h-sm`: Alto máximo de 24rem.
@@ -485,13 +499,13 @@ Vamos a desglosar y analizar algunos elementos del código proporcionado, clasif
 - `max-h-full`: Alto máximo del 100% del contenedor.
 - `max-h-screen`: Alto máximo del 100% del viewport.
 
-### Ancho Mínimo (Min Width)
+##### Ancho Mínimo (Min Width)
 - `min-w-0`: Ancho mínimo de 0.
 - `min-w-full`: Ancho mínimo del 100% del contenedor.
 - `min-w-min`: Ancho mínimo del contenido.
 - `min-w-max`: Ancho mínimo del contenido máximo.
 
-### Alto Mínimo (Min Height)
+##### Alto Mínimo (Min Height)
 - `min-h-0`: Alto mínimo de 0.
 - `min-h-full`: Alto mínimo del 100% del contenedor.
 - `min-h-screen`: Alto mínimo del 100% del viewport.
@@ -553,9 +567,9 @@ Tailwind CSS utiliza breakpoints para crear diseños responsivos, permitiendo ap
 
 Cada breakpoint incluye los tamaños de pantalla más grandes. Por ejemplo, `sm` se aplica a pantallas de 640px en adelante, incluyendo `md`, `lg`, y `xl`. Puedes ajustar estos valores en la configuración de Tailwind CSS para adaptarlos a las necesidades específicas de tu proyecto.
 
-## Interfaces en TS
+## Interfaces en TypeScript
 
-## ¿Para qué sirve?
+### ¿Para qué sirve?
 1. Definir Contratos : Establece reglas claras sobre la estructura que deben seguir los objetos
 2. Validación de Tipos : Ayuda a detectar errores en tiempo de desarrollo
 3. Documentación : Sirve como documentación clara del código
@@ -579,14 +593,15 @@ interface Usuario {
 
 // Uso en un objeto
 const usuario: Usuario = {  nombre: "Juan",  edad: 25};
+```
+```typescript
 // Uso en una función
 function saludarUsuario(usuario: Usuario) {  console.log(`Hola ${usuario.nombre}`);
-
 }
 ```
 3. Interfaces con Métodos
 
-#### 3.1 Métodos Básicos
+  Métodos Básicos
 ```typescript
 interface Calculadora {
   // Método sin argumentos que retorna un número
@@ -623,29 +638,31 @@ const calculadora: Calculadora = {
     return b === 0 ? "Error: División por cero" : a / b;
   }
 };
+```
 
-4. sintaxis similares: Sintaxis de Métodos y Sintaxis de Propiedades
+4. Sintaxis similares: Sintaxis de Métodos y Sintaxis de Propiedades
 
-### 1. Sintaxis de Método (Method Shorthand)
+### Sintaxis de Método (Method Shorthand)
 
 ```typescript
 interface Ejemplo {
   limpiarMemoria(): void;
-  limpiarMemoria(a: string, b: string): void;
+  limpiarMemoria2(a: string, b: string): void;
 }
 ```
 
-- Comúnmente usada cuando defines métodos en interfaces que serán implementadas por clases
+Comúnmente usada cuando defines métodos en interfaces que serán implementadas por clases.
 
-2. Sintaxis de Propiedad de Función (Function Property)
+### Sintaxis de Propiedad de Función (Function Property)
+
 ```typescript
 interface Ejemplo {
   limpiarHistorial: () => void;
-  limpiarHistorial: (a: string, b: string) => void;
+  limpiarHistorial2: (a: string, b: string) => void;
 }
 ```
 
-- Comúnmente usada en interfaces para objetos literales y componentes de React
+Comúnmente usada en interfaces para objetos literales y componentes de React.
 
 ### Ejemplos Prácticos:
 ```typescript
@@ -727,7 +744,7 @@ const Button = ({ children }) => (
 ```
 ### Ahora el código de los componentes reutilizables
 
-```html
+```typescript
 import { Link as LinkRouter } from 'react-router-dom';
 import { Link as LinkScroll } from 'react-scroll';
 
@@ -912,7 +929,7 @@ export const NavLinkRouter = ({
 
 primero analizaremos lo más simple:
 
-```tsx
+```typescript
 <div className="h-6 w-px bg-[var(--medium-green)]" />
 ```
 
@@ -926,3 +943,182 @@ Visualmente, se renderiza como una línea vertical así:
 ```plaintext
 Productos | Contacto
 ```
+
+### Comentario final para menú Desktop
+
+Hasta este punto <NavLinkRouter> de E-Commerce y el de Productos son muy similares, por otra parte <NavLinkScroll> aunque es un poco diferente ya es posible entenderlo fácilmente. Finalmente es importante mencionar que el menú **desktop** por defecto no es vicible gracias a la clase tailwind **hidden** pero md:flex lo hace visible a partir de pantallas de 768px.
+
+## Sección User Desktop
+
+```
+// Lógica de logout
+  const handleLogout = () => {
+    setUser(null);
+    setToken(null);
+    setRole(null);
+    setIsMenuOpen(false);
+    navigate('/products');
+  };
+
+{/* Sección User - Desktop */}
+<div className="hidden md:flex items-center gap-6">
+  {user ? (
+    <div className="flex items-center gap-4">
+      <span className="text-[var(--white)]">Hola, {user}</span>
+      {role === 'admin' && <NavLinkRouter to="/admin">Admin</NavLinkRouter>}
+      <button
+        onClick={handleLogout}
+        className="text-[var(--white)] hover:text-[var(--dark-blue)] transition-colors"
+      >
+        Cerrar Sesión
+      </button>
+    </div>
+  ) : (
+    <NavLinkRouter to="/login">Iniciar Sesión</NavLinkRouter>
+  )}
+  <NavCartButton count={3} />
+  <LanguageSelector />
+</div>
+```
+La variable `user` se obtiene de `useStore()` (ver [integración-zustand.md](./integracion-zustand.md) para más detalles). 
+
+De igual forma, `role` se obtiene de `useStore()` y cuando su valor es 'admin', se renderiza un enlace adicional `<NavLinkRouter to="/admin">Admin</NavLinkRouter>` que permite acceder al panel de administración.
+
+### Botón en la sección User Desktop
+El botón de cerrar sesión en la sección User Desktop tiene los siguientes efectos al ser presionado:
+
+1. Ejecuta la función `handleLogout()` que:
+  - Limpia los datos del usuario (`setUser(null)`)  
+  - Elimina el token de autenticación (`setToken(null)`)
+  - Elimina el rol del usuario (`setRole(null)`)
+  - Ver [integración-zustand.md](./integracion-zustand.md) para más detalles.
+  - Cierra el menú móvil si está abierto (`setIsMenuOpen(false)`)
+  - Navega a la página de productos (`navigate('/products')`)
+
+2. Los estilos del botón incluyen:
+  - Color de texto blanco (`text-[var(--white)]`)
+  - Al pasar el mouse cambia a azul oscuro (`hover:text-[var(--dark-blue)]`)
+  - La transición del color es suave (`transition-colors`)
+
+Por lo tanto, cuando el usuario hace clic en "Cerrar Sesión", se elimina toda la información de su sesión y es redirigido a la página principal de productos, con una animación suave en el botón al interactuar con él.
+
+3. Por otra parte, si el usuario no está autenticado solo se renderizará el componente `<NavLinkRouter to="/login">Iniciar Sesión</NavLinkRouter>`
+
+4. Independiente de lo anterior siempre se renderizará `<NavCartButton count={3} /> y <LanguageSelector />` en pantallas `md` o superiores.
+
+### Componente NavCartButton y LanguageSelector
+
+```typescript
+import { FaShoppingCart, FaGlobe } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+
+
+interface CartButtonProps {
+  count: number;
+  mobile?: boolean;
+}
+
+export const NavCartButton = ({ count, mobile = false }: CartButtonProps) => (
+  <LinkRouter
+    to="/cart"
+    className={`relative text-[var(--white)] ${mobile ? 'p-3 flex items-center gap-2' : 'p-2'} hover:text-[var(--beige)] transition-colors`}
+    aria-label={`Carrito (${count} items)`}
+  >
+    <FaShoppingCart className={mobile ? 'w-6 h-6' : 'w-5 h-5'} />
+    <AnimatePresence>
+      {count > 0 && (
+        <motion.span
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          exit={{ scale: 0 }}
+          className={`absolute ${
+            mobile 
+              ? 'static bg-transparent text-[var(--beige)] text-base'
+              : '-top-1 -right-1 bg-[var(--light-brown)] text-[var(--dark-green)] text-xs'
+          } w-5 h-5 rounded-full flex items-center justify-center font-bold`}
+        >
+          {mobile ? `(${count})` : count}
+        </motion.span>
+      )}
+    </AnimatePresence>
+    {mobile && <span className="text-[var(--beige)]">Carrito</span>}
+  </LinkRouter>
+);
+
+export const LanguageSelector = ({ mobile }: { mobile?: boolean }) => (
+  <button 
+    className={`${
+      mobile 
+        ? 'flex items-center gap-2 p-3 text-[var(--beige)] rounded-full w-full'
+        : 'px-2 py-1 text-[var(--beige)]  rounded-full'
+    } transition-colors`}
+    aria-label="Cambiar idioma"
+  >
+    <FaGlobe className={mobile ? 'w-6 h-6 text-[var(--white)] hover:text-[var(--beige)] transition-colors' : 'w-5 h-5 text-[var(--white)] hover:text-[var(--beige)] transition-colors'} />
+    {mobile && <span className="text-[var(--beige)]">Idioma (EN/ES)</span>}
+  </button>
+);
+```
+
+#### Importaciones 
+
+Los componentes utilizan las siguientes importaciones:
+
+- `FaShoppingCart, FaGlobe`: Iconos de carrito de compras y globo terráqueo de la biblioteca react-icons/fa, que proporciona iconos de Font Awesome para React.
+
+- `motion, AnimatePresence`: Componentes de la biblioteca framer-motion, utilizados para crear animaciones fluidas:
+  - `motion`: Permite añadir animaciones a elementos
+  - `AnimatePresence`: Maneja la animación de elementos cuando se montan o desmontan del DOM
+
+#### interfaces de los componentes
+
+Para esto puede consultar la sección: [Interfaces en TypeScript](#interfaces-en-typescript)
+
+#### Estilos Condicionales en los Componentes NavCartButton y LanguageSelector
+
+
+##### NavCartButton
+
+La lógica condicional se basa en la prop `mobile`:
+
+1. **Contenedor Principal**:
+```typescript
+${mobile ? 'p-3 flex items-center gap-2' : 'p-2'}
+```
+- Si `mobile`: Más padding y layout flex con espaciado
+- Si no: Solo padding simple
+
+2. **Icono**:
+```typescript
+className={mobile ? 'w-6 h-6' : 'w-5 h-5'}
+```
+- Si `mobile`: Icono más grande (24px)
+- Si no: Icono más pequeño (20px)
+
+3. **Contador**:
+```typescript
+${mobile ? 'static bg-transparent text-[var(--beige)] text-base' : '-top-1 -right-1 bg-[var(--light-brown)] text-[var(--dark-green)] text-xs'}
+```
+- Si `mobile`: Posicionamiento normal, sin fondo, texto beige grande
+- Si no: Posicionamiento absoluto, fondo marrón, texto verde oscuro pequeño
+
+##### LanguageSelector
+
+1. **Contenedor**:
+```typescript
+${mobile ? 'flex items-center gap-2 p-3 text-[var(--beige)] w-full' : 'px-2 py-1 text-[var(--beige)]'}
+```
+- Si `mobile`: Layout flex con espaciado, más padding y ancho completo
+- Si no: Solo padding horizontal y vertical reducido
+
+2. **Icono**:
+```typescript
+mobile ? 'w-6 h-6' : 'w-5 h-5'
+```
+- Si `mobile`: Icono más grande (24px)
+- Si no: Icono más pequeño (20px)
+
+#### Resumen de NavCartButton y LanguageSelector
+
+Estos 2 componentes están desarrollados estéticamente pero aun no son funcionales por los cual se simula con cont={3} que hay 3 productos en el carro de compras `<NavCartButton count={3} />` y por otra parte el componente `<LanguageSelector />` aun no tiene con controlador que afecte el estado global del lenguaje de usuario.
+
