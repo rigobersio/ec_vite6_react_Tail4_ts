@@ -1315,3 +1315,310 @@ Estos 2 componentes están desarrollados estéticamente pero aun no son funciona
   </button>
 </div>
 ```
+
+### Atributo size
+
+El atributo `size` en los componentes de la biblioteca react-icons define el tamaño del ícono. Generalmente se interpreta en píxeles, por lo que si asignas `size={20}` el ícono se renderiza con un tamaño de 20 píxeles. Es similar a establecer la propiedad CSS `font-size` y te permite ajustar rápidamente el tamaño del ícono sin necesidad de aplicar estilos adicionales.
+
+## MobileMenu
+
+Es un menú móvil que se abre/cierra con animación, similar a los menús deslizantes que ves en apps móviles. Aparece desde arriba y bloquea el contenido de fondo.
+
+### Funcionalidad principal:
+
+- Se abre/cierra suavemente con animaciones
+
+- Muestra diferentes opciones según si el usuario está logueado o no
+
+- Incluye navegación, selector de idioma y carrito de compras
+
+- Bloquea el scroll de la página cuando está abierto
+
+```typescript
+import React, { useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useStore } from '../../store/store';
+import { NavLinkRouter, NavLinkScroll, NavCartButton, LanguageSelector } from './NavComponents';
+import { FaUser, FaCog, FaSignOutAlt } from 'react-icons/fa';
+
+const MobileMenu: React.FC<{
+    isOpen: boolean;
+    onClose: () => void;
+    handleLogout: () => void;
+}> = ({ isOpen, onClose, handleLogout }) => {
+    const { user, role } = useStore();
+
+    useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'auto';
+    }, [isOpen]);
+
+    return (
+        <AnimatePresence>
+            {isOpen && (
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="relative inset-0 z-40 bg-[var(--dark-green)] pt-[var(--nav-height)]"
+                >
+                    <div className="p-4 space-y-4">
+                        {/* Menú principal */}
+                        <NavLinkRouter to="/products" mobile onClose={onClose}>
+                            Productos
+                        </NavLinkRouter>
+                        <NavLinkScroll to="contact" mobile onClose={onClose}>
+                            Contacto
+                        </NavLinkScroll>
+
+                        {/* Sección de usuario */}
+                        <div className="border-t border-[var(--medium-green)] pt-4">
+                            {user ? (
+                                <>
+                                    <div className="flex items-center gap-3 p-4 bg-[var(--medium-green)] rounded-lg">
+                                        <FaUser className="text-[var(--beige)] text-xl" />
+                                        <div>
+                                            <p className="text-[var(--beige)] font-medium">{user}</p>
+                                            <p className="text-[var(--light-brown)] text-sm">{role}</p>
+                                        </div>
+                                    </div>
+                                    {role === 'admin' && (
+                                        <NavLinkRouter 
+                                            to="/admin" 
+                                            mobile 
+                                            onClose={onClose}
+                                            className="flex items-center gap-2"
+                                        >
+                                            <FaCog className="text-[var(--beige)]" />
+                                            Panel Admin
+                                        </NavLinkRouter>
+                                    )}
+                                    <button 
+                                        onClick={handleLogout}
+                                        className="flex items-center gap-3 w-full p-4 text-[var(--light-brown)] hover:bg-[var(--medium-green)]"
+                                    >
+                                        <FaSignOutAlt className="text-[var(--beige)]" />
+                                        Cerrar Sesión
+                                    </button>
+                                </>
+                            ) : (
+                                <NavLinkRouter 
+                                    to="/login" 
+                                    mobile 
+                                    onClose={onClose}
+                                    className="bg-[var(--light-brown)] hover:bg-[var(--dark-blue)] text-[var(--dark-green)] p-4 rounded-lg text-center font-medium block"
+                                >
+                                    Iniciar Sesión
+                                </NavLinkRouter>
+                            )}
+                            
+                            {/* Accesos directos */}
+                            <div className="flex gap-4 p-4 border-t border-[var(--medium-green)]">
+                                <NavCartButton count={3} mobile />
+                                <LanguageSelector mobile />
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
+};
+
+export default MobileMenu;
+```
+### Definición de tipos
+ Hay varias cuestiones que ya se han analizado anteriormente, por lo cual solo se analizaran algunas cuestiones importantes.
+
+```typescript
+ const MobileMenu: React.FC<{
+    isOpen: boolean;
+    onClose: () => void;
+    handleLogout: () => void;
+}> = ({ isOpen, onClose, handleLogout })
+```
+
+La parte que se muestra es la definición de los tipos de las propiedades (props) del componente, utilizando el tipo genérico de React "React.FC". Es decir, se están definiendo en línea las propiedades que el componente espera recibir.
+
+Esta se puede reemplazar por una interface.
+
+```typescript
+interface MobileMenuProps {
+    isOpen: boolean;
+    onClose: () => void;
+    handleLogout: () => void;
+}
+
+const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, handleLogout }) => { ... }
+```
+
+#### Diferencias principales:
+
+- `Extensibilidad y Reusabilidad:`
+  Con una interface puedes extenderla en otros componentes o a partir de otras interfaces, lo que facilita la reutilización, mientras que el objeto literal es una definición única y no extensible.
+
+- `Declaración Incremental (Declaration Merging):`
+  Las interfaces permiten la fusión de declaraciones en distintos lugares, mientras que los tipos (en este caso, el objeto literal) son estáticos y no se pueden redeclarar.
+
+- `Legibilidad:`
+  Al definir una interface con nombre, el código puede resultar más legible y semántico en comparación con una definición en línea.
+
+Ambas aproximaciones definen de manera similar qué propiedades se esperan, pero el uso de interfaces es más adecuado en proyectos grandes o cuando se requiere reutilización/extensibilidad de tipos.
+
+
+### Animación con Framer Motion (motion.div):
+
+```typescript
+<motion.div
+  initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  exit={{ opacity: 0, y: -20 }}
+>
+```
+
+- `Qué hace?`: Crea animaciones de entrada/salida para el menú móvil.
+
+- `Desglose`:
+
+  - `initial`: Estado inicial antes de aparecer (opacidad 0 y posición 20px arriba)
+
+  - `animate`: Estado durante la presencia (opacidad completa y posición normal)
+
+  - `exit`: Estado al desaparecer (vuelve a opacidad 0 y sube 20px)
+
+
+> `AnimatePresence` envuelve el componente para manejar animaciones de salida
+
+
+### Clase relative inset-0:
+
+```typescript
+className="relative inset-0..."
+```
+
+`Contexto: El menú está dentro de un <nav> con position: fixed`
+
+- `Explicación`:
+
+- `relative`: Posicionamiento relativo al contenedor padre nav
+
+- `inset-0`: Equivale a top: 0; right: 0; bottom: 0; left: 0 → Ocupa todo el espacio disponible del padre
+
+- `Efecto visual`: El menú móvil cubre toda el área debajo de la barra de navegación
+
+
+### Contenedor con espaciado:
+
+```typescript
+<div className="p-4 space-y-4">
+```
+
+- `space-y-4`: Espaciado vertical (margin-top) de 1rem entre elementos hijos
+
+
+### Estilo del botón de Login:
+
+```typescript
+className="bg-[var(--light-brown)] hover:bg-[var(--dark-blue)]... block"
+```
+
+- `block`: Elemento de bloque que ocupa todo el ancho disponible
+
+- `Propósito de estilo`: Destacar visualmente el botón de login y hacerlo fácil de interactuar en móviles
+
+## useEffect + overflow:
+
+```typescript
+useEffect(() => {
+  if (isOpen) document.body.style.overflow = 'hidden';
+  else document.body.style.overflow = 'auto';
+}, [isOpen]);
+```
+
+### Hook useEffect:
+
+Ejecuta efectos secundarios en componentes funcionales
+
+- `En este caso`: modificar el overflow del body
+
+- `Dependencia [isOpen]`:
+
+El efecto se ejecuta cada vez que isOpen cambia
+
+#### ¿Qué es la lista de dependencias en useEffect?
+
+El segundo parámetro de useEffect es un array (lista) que le indica a React:
+
+- `Componente de perfil de usuario`:
+
+```typescript
+const UserProfile = () => {
+  useEffect(() => {
+    // Bueno para fetching inicial de datos
+    fetchUserData();
+  }, []); // ← Solo al montar
+  
+  return <div>Perfil de usuario</div>;
+}
+```
+- `Con dependencia [isOpen]`
+
+```typescript
+useEffect(() => {
+  // Este código se ejecuta:
+  // - Al montar (si isOpen es true inicialmente)
+  // - Cada vez que isOpen cambie
+}, [isOpen]); // ← Dependencia específica
+```
+
+- `Comportamiento`:
+
+  - Se ejecuta al montar (si la dependencia tiene valor inicial)
+
+  - Se vuelve a ejecutar cada vez que isOpen cambia
+
+  - El cleanup se ejecuta antes de cada re-ejecución y al desmontar
+
+#### Lógica del Cuerpo:
+
+- `document.body.style.overflow = 'hidden'`: Bloquea el scroll de la página
+- `document.body.style.overflow = 'auto'`: Restaura el scroll normal
+
+#### Comportamiento en Detalle:
+
+- `Al abrir el menú`: bloquea el scroll del body para que el usuario no pueda hacer scroll de la página principal y el enfoque permanezca en el menú móvil (evita desplazamientos accidentales)
+
+- `Al cerrar el menú`: vuelve al comportamiento normal de scroll
+
+> La dependencia asegura sincronización entre estado visual y comportamiento del scroll
+
+##### Consideraciones de Rendimiento:
+
+Modificar el DOM directamente (document.body) es necesario aquí porque:
+
+El scroll afecta a toda la página (fuera del alcance de React)
+
+Alternativas como wrappers de contenido serían menos eficientes
+
+El efecto es ligero y se ejecuta solo cuando cambia isOpen
+
+
+- `Cleanup Implícito`: al desmontar el componente:
+
+React ejecuta automáticamente la última versión del efecto
+
+Si isOpen fuera true al desmontar, dejaría el overflow como 'hidden'
+
+Por eso es crucial el else que restaura el estado
+
+Diagrama de Flujo:
+
+[Usuario hace clic en menú]
+  → isOpen cambia a true
+  → useEffect detecta cambio
+  → Bloquea scroll (overflow: hidden)
+
+[Usuario cierra menú]
+  → isOpen cambia a false
+  → useEffect detecta cambio
+  → Restaura scroll (overflow: auto)
