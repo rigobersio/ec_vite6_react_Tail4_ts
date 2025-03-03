@@ -1622,3 +1622,135 @@ Diagrama de Flujo:
   → isOpen cambia a false
   → useEffect detecta cambio
   → Restaura scroll (overflow: auto)
+
+## React.lazy() - Carga Diferida Avanzada
+
+```typescript
+const MobileMenu = React.lazy(() => import('./MobileMenu'));
+```
+
+- `Carga bajo demanda`: Crea un "punto de división" en tu bundle (paquete compilado de la app). El código de MobileMenu se separa en un archivo JavaScript/CSS aparte (ej: 2.chunk.js).
+
+- `Mecanismo técnico`:
+
+  - `import('./MobileMenu')` usa dynamic imports (soporte nativo de JavaScript/Webpack), que devuelve una Promesa.
+
+  - `React.lazy()` recibe una función que retorna esta Promesa y devuelve un componente React **suspendible**.
+
+- `Flujo interno de React`:
+
+  - Al renderizar **MobileMenu**, React verifica si el código está cargado.
+
+  - Si no lo está, suspende el renderizado y muestra el **Fallback**.
+
+  - Carga el **chunk** necesario en segundo plano (vía **script** dinámico).
+
+  - Cuando la Promesa se resuelve, React re-renderiza automáticamente.
+
+- `Detalles Clave`:
+
+  - Code Splitting Automático: Webpack/Vite dividen automáticamente el código al usar import(), generando archivos separados.
+
+
+  - Carga en Memoria: Una vez cargado, el componente queda en caché para usos futuros (no se descarga nuevamente).
+
+  - Errores: Si falla la carga, se necesita un Error Boundary para manejar el error (no cubierto en este ejemplo).
+
+- `Ejemplo Técnico de lo que Genera`:
+
+```html
+<!-- Carga inicial -->
+<script src="main.bundle.js"></script>
+
+<!-- Cuando se necesita MobileMenu -->
+<script src="2.chunk.js"></script>
+```
+
+- `Beneficios Cuantificables`:
+
+    - Reduce el tamaño inicial del bundle (mejora el Time to Interactive).
+
+    - Ideal para componentes pesados o poco usados (ej: modales, menús complejos).
+
+## Suspense y Fallback - Gestión de Estados de Carga
+
+```typescript
+<Suspense fallback={<div>Cargando...</div>}>
+  <MobileMenu .../>
+</Suspense>
+```
+
+- `Anatomía del Fallback`:
+
+    - `No es un simple "loading"`: Es un mecanismo de sincronización entre la UI y la carga de recursos.
+
+- `Ciclo de Vida`:
+
+    - `Montaje Inicial`: Muestra el Fallback inmediatamente si el componente no está cargado.
+
+    - `Carga Exitosa`: Desmonta el Fallback y monta el componente real.
+
+    - `Actualizaciones`: Si el componente ya está cargado, no muestra Fallback en re-renders.
+
+- `Buenas Prácticas para el Fallback`:
+
+  - `Mimetismo Estructural`: El Fallback debería imitar el tamaño y disposición del componente real para evitar layout shifts.
+  - `Indicadores de Progreso`: Usar spinners, skeletons, o barras de progreso para una UX profesional.
+  - `Accesibilidad`: Agregar aria-live y role para lectores de pantalla.
+
+```typescript
+const MenuFallback = () => (
+  <div className="h-screen w-full bg-dark-green pt-16"> 
+    <div className="animate-pulse p-4 space-y-4">
+      <div className="h-8 bg-medium-green rounded"></div>
+      <div className="h-8 bg-medium-green rounded"></div>
+    </div>
+  </div>
+);
+```
+
+    
+    
+```typescript
+fallback={
+  <div role="status" aria-live="polite" className="sr-only">
+    Cargando menú...
+  </div>
+}
+```
+
+## Comportamiento de Suspense
+
+- `Ámbito de Acción`: Controla todos los componentes suspendidos dentro de él. Si tienes múltiples lazy(), muestra un solo Fallback para todos.
+
+- `Anidamiento`: Puedes tener múltiples **Suspense** anidados con diferentes Fallbacks para granularidad.
+
+- `Server-Side Rendering (SSR)`: En frameworks como Next.js, Suspense maneja la hidratación asincrónica.
+
+## Resumen Funcionamiento MobileMenu:
+
+- `Renderizado Condicional`: Solo existe en el DOM cuando isMenuOpen es true.
+
+- `Carga Optimizada`: Gracias a **React.lazy()**, su código se descarga solo cuando el usuario abre el menú por primera vez.
+
+- `Interacción Clave`: Al cerrarse (vía onClose), React mantiene el componente en memoria para próximos usos.
+
+### Flujo Completo (Integrando lazy y Suspense):
+
+
+1. Usuario hace clic en "Abrir Menú"
+2. NavBar → Detecta que MobileMenu no está cargado
+3. Suspense → Muestra Fallback
+4. Navegador → Descarga 2.chunk.js (en paralelo)
+5. React → Hidrata el componente MobileMenu
+6. MobileMenu → Ejecuta sus efectos (animación, bloqueo scroll)
+7. Usuario → Interactúa con el menú
+8. Al cerrar → MobileMenu se desmonta, pero su código queda en caché
+
+#### Impacto en Performance:
+
+| Escenario | Sin lazy() | Con lazy() + Suspense |
+|-----------|------------|----------------------|
+| Tamaño Inicial | 200KB | 180KB (+20KB lazy) |
+| Primer Render Menú | 0ms | 300ms (descarga) |
+| Render Subsiguientes | 0ms | 0ms (ya en caché) |
