@@ -1,15 +1,36 @@
-<!-- Tabla de Contenido -->
-## Tabla de Contenido destacado
+# Guía Completa del Componente NavBar
+
+## Tabla de Contenido
 1. [Importaciones](#importaciones)
 2. [Iconos](#iconos)
 3. [Estado y Hooks](#estado-y-hooks)
 4. [Explicación Detallada del Hook useEffect](#explicación-detallada-del-hook-useeffect)
+   - [¿Qué es un Hook en React?](#qué-es-un-hook-en-react)
+   - [Analogía Cotidiana](#analogía-cotidiana)
+   - [Paso 1: Entendiendo las Partes Clave](#paso-1-entendiendo-las-partes-clave)
+   - [Paso 2: Desglose Línea por Línea](#paso-2-desglose-línea-por-línea)
+   - [Paso 3: Flujo Completo del Efecto](#paso-3-flujo-completo-del-efecto)
 5. [Función de Logout](#función-de-logout)
 6. [Retorno del Componente](#retorno-del-componente)
+   - [Contenedores principales](#contenedores-principales)
+   - [Etiquetas HTML](#etiquetas-html)
+   - [Atributo className](#atributo-classname)
 7. [Sección User Desktop](#sección-user-desktop)
-8. [NavCartButton y LanguageSelector](#navcartbutton-y-languageselector)
-9. [Interfaces en TypeScript](#interfaces-en-typescript)
-10. [Aria-label](#aria-label)
+   - [Botón en la sección User Desktop](#botón-en-la-sección-user-desktop)
+8. [Componente NavCartButton y LanguageSelector](#componente-navcartbutton-y-languageselector)
+   - [Importaciones](#importaciones-1)
+   - [Interfaces de los componentes](#interfaces-de-los-componentes)
+   - [Estilos Condicionales en los Componentes](#estilos-condicionales-en-los-componentes-navcartbutton-y-languageselector)
+9. [Sección User Mobile](#sección-user-mobile)
+   - [Atributo size](#atributo-size)
+10. [MobileMenu](#mobilemenu)
+    - [Definición de tipos](#definición-de-tipos)
+    - [Animación con Framer Motion](#animación-con-framer-motion-motiondiv)
+    - [useEffect + overflow](#useeffect--overflow)
+11. [React.lazy() - Carga Diferida Avanzada](#reactlazy---carga-diferida-avanzada)
+12. [Suspense y Fallback - Gestión de Estados de Carga](#suspense-y-fallback---gestión-de-estados-de-carga)
+    - [Comportamiento de Suspense](#comportamiento-de-suspense)
+    - [Resumen Funcionamiento MobileMenu](#resumen-funcionamiento-mobilemenu)
 
 El componente `NavBar` es un componente de navegación que se encuentra en la parte superior de la aplicación. Proporciona enlaces de navegación tanto para la versión de escritorio como para la versión móvil, y maneja el estado de autenticación del usuario.
 
@@ -1557,7 +1578,6 @@ const UserProfile = () => {
     // Bueno para fetching inicial de datos
     fetchUserData();
   }, []); // ← Solo al montar
-  
   return <div>Perfil de usuario</div>;
 }
 ```
@@ -1652,7 +1672,7 @@ const MobileMenu = React.lazy(() => import('./MobileMenu'));
   - Code Splitting Automático: Webpack/Vite dividen automáticamente el código al usar import(), generando archivos separados.
 
 
-  - Carga en Memoria: Una vez cargado, el componente queda en caché para usos futuros (no se descarga nuevamente).
+  - Carga en Memoria: Una vez cargado, el componente queda en caché para usos futuros (no se descarga nuevamente). 
 
   - Errores: Si falla la carga, se necesita un Error Boundary para manejar el error (no cubierto en este ejemplo).
 
@@ -1709,8 +1729,7 @@ const MenuFallback = () => (
 );
 ```
 
-    
-    
+
 ```typescript
 fallback={
   <div role="status" aria-live="polite" className="sr-only">
@@ -1754,3 +1773,4 @@ fallback={
 | Tamaño Inicial | 200KB | 180KB (+20KB lazy) |
 | Primer Render Menú | 0ms | 300ms (descarga) |
 | Render Subsiguientes | 0ms | 0ms (ya en caché) |
+`
