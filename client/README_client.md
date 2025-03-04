@@ -93,8 +93,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MainLayout from './MainLayout';
 import HomePage from './pages/HomePage';
 import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
-import LogoutPage from './pages/LogoutPage';
+import Login from "./pages/Login";
+import Logout from './pages/Logout';
 import GalleryPage from './pages/GalleryPage';
 import ProfilePage from './pages/ProfilePage';
 import PaymentGateway from './pages/PaymentGateway';
@@ -118,7 +118,7 @@ function App() {
       path: "/login",
       element: (
         <MainLayout>
-          <LoginPage />
+          <Login />
         </MainLayout>
       ),
       errorElement: <Error />
@@ -157,7 +157,7 @@ function App() {
           path: "/logout",
           element: (
             <MainLayout>
-              <LogoutPage />
+              <Logout />
             </MainLayout>
           ),
           errorElement: <Error />

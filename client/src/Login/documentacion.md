@@ -1,0 +1,1 @@
+Para trabajar de forma modular empece estructurando las carpetas por nombre de modulo(en este caso empece con Login) y dentro separo Framework(servicios relacionados al login) y Presentation(Dividido en Pages y Components donde irian los elementos del Login)

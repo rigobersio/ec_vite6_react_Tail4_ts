@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LogoutPage: React.FC = () => {
+const Logout: React.FC = () => {
   return (
     <div>
       <h1>componente logout</h1>
@@ -8,4 +8,4 @@ const LogoutPage: React.FC = () => {
   );
 };
 
-export default LogoutPage;
+export default Logout;
