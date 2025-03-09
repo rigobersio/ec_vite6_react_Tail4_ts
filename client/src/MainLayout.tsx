@@ -7,7 +7,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className='flex flex-col min-h-screen w-[100%] '>
       <NavBar />
-      <main className="flex-grow pt-[var(--nav-height)] mt-[20px]">
+      <main className="flex-grow pt-[var(--nav-height)] mt-[20px] px-[8px]">
         {children}
       </main>
       <Footer />
