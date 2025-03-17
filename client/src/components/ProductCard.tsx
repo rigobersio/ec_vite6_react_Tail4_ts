@@ -8,14 +8,18 @@ export interface ProductProps {
     image: string;
     stock: number;
     discount?: number; // Opcional
+    onClick?: () => void; // Función para manejar el clic en la tarjeta
 }
 
-const ProductCard: React.FC<ProductProps> = ({ id, name, price, image, stock, discount }) => {
+const ProductCard: React.FC<ProductProps> = ({ id, name, price, image, stock, discount, onClick }) => {
     // Calcular el precio con descuento si existe
     const finalPrice = discount ? price - (price * discount / 100) : price;
 
     return (
-        <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
+        <div
+            className="max-w-sm rounded overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+            onClick={onClick}
+        >
             <div className="relative">
                 <img className="w-full h-48 object-cover" src={image} alt={name} />
                 {discount && (
