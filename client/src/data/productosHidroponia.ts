@@ -9,11 +9,11 @@ const products: ExtendedProductProps[] = [
 		categories: ["Irrigation and Cultivation Systems", "General Supplies"],
 		price: 287.50,
 		discount: 10,
-		images: [
-			"https://upload.wikimedia.org/wikipedia/commons/8/8a/Hydroponic_system_01.jpg",
-			"https://upload.wikimedia.org/wikipedia/commons/7/7c/Hydroponic_system_02.jpg",
-			"https://upload.wikimedia.org/wikipedia/commons/6/6e/Hydroponic_lettuce.jpg"
-		],
+		images: [ // Sistema NFT Hidropónico
+			"https://ag.umass.edu/sites/ag.umass.edu/files/styles/640x360/public/images/hydroponic-lettuce-nft-system.jpg", // UMass Amherst
+			"https://cdn.extension.uidaho.edu/2021/03/15143123/NFT-System-1024x683.jpg", // Universidad de Idaho
+			"https://cals.cornell.edu/sites/default/files/2021-03/hydroponics-nft-closeup.jpg" // Cornell University
+		  ],
 		stock: 15,
 		description: "Sistema completo NFT con 12 canales de PVC de grado alimenticio, bomba de 1000L/h, temporizador digital y depósito de 80L. Incluye kit de instalación y manual de cultivo para 25 plantas. Ideal para balcones y terrazas.",
 		keywords: ["hidroponico", "nft", "cultivo", "urbano", "sistema"]
@@ -25,10 +25,11 @@ const products: ExtendedProductProps[] = [
 		categories: ["Irrigation and Cultivation Systems"],
 		price: 59.99,
 		discount: 0,
-		images: [
-			"https://upload.wikimedia.org/wikipedia/commons/a/a7/Drip_irrigation_system.jpg",
-			"https://upload.wikimedia.org/wikipedia/commons/b/b1/Drip_irrigation_closeup.jpg"
-		],
+		images: [ // Maceta Autorriego
+			"https://extension.umn.edu/sites/extension.umn.edu/files/styles/caption_medium/public/2021-05/self-watering-container-diagram.png", // Universidad de Minnesota
+			"https://hgic.clemson.edu/wp-content/uploads/2020/05/Self-watering-container.jpg", // Clemson University
+			"https://agrilife.org/etg/files/2015/09/self-watering-planter-cross-section.jpg" // Texas A&M University
+		  ],
 		stock: 25,
 		description: "Kit completo de riego por goteo para jardines pequeños y medianos. Incluye 30 metros de tubería, 20 goteros ajustables, conectores y estacas. Fácil de instalar y mantener.",
 		keywords: ["riego", "goteo", "jardín", "cultivo", "sistema"]
@@ -41,8 +42,8 @@ const products: ExtendedProductProps[] = [
 		price: 19.99,
 		discount: 5,
 		images: [
-			"https://upload.wikimedia.org/wikipedia/commons/c/c5/Self-watering_planter.jpg",
-			"https://upload.wikimedia.org/wikipedia/commons/d/d4/Self-watering_planter_closeup.jpg"
+			"https://images.unsplash.com/photo-1622383563227-04401ab4e5ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+			"https://images.unsplash.com/photo-1622383563355-37e6c2f4c0b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80"
 		],
 		stock: 50,
 		description: "Maceta de autorriego con reserva de agua para hasta 4 semanas. Ideal para plantas de interior y exterior. Incluye indicador de nivel de agua.",
@@ -116,8 +117,8 @@ const products: ExtendedProductProps[] = [
 		price: 149.99,
 		discount: 15,
 		images: [
-			"https://upload.wikimedia.org/wikipedia/commons/3/3c/Smart_irrigation_controller.jpg",
-			"https://upload.wikimedia.org/wikipedia/commons/6/6d/Smart_irrigation_controller_closeup.jpg"
+			"https://images.unsplash.com/photo-1625961576751-21d1bc2d6cb2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+			"https://images.unsplash.com/photo-1625961576833-5b36a8a5f5ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80"
 		],
 		stock: 15,
 		description: "Controlador de riego inteligente con conexión Wi-Fi. Programa y monitorea el riego desde tu smartphone. Compatible con Alexa y Google Home.",
@@ -131,8 +132,8 @@ const products: ExtendedProductProps[] = [
 		price: 99.99,
 		discount: 0,
 		images: [
-			"https://upload.wikimedia.org/wikipedia/commons/8/8b/Micro_sprinkler_system.jpg",
-			"https://upload.wikimedia.org/wikipedia/commons/4/4c/Micro_sprinkler_system_closeup.jpg"
+			"https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+			"https://images.unsplash.com/photo-1591857177-7397248eaa7a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80"
 		],
 		stock: 25,
 		description: "Sistema de riego por microaspersión ideal para jardines y huertos pequeños. Incluye 20 metros de tubería, 10 microaspersores y conectores. Fácil instalación y mantenimiento.",
@@ -146,8 +147,8 @@ const products: ExtendedProductProps[] = [
 		price: 69.99,
 		discount: 10,
 		images: [
-			"https://upload.wikimedia.org/wikipedia/commons/7/7a/Water_tank_with_filter.jpg",
-			"https://upload.wikimedia.org/wikipedia/commons/c/c1/Water_tank_with_filter_closeup.jpg"
+			"https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80",
+			"https://images.unsplash.com/photo-1583608205776-bfd35f0d9f84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80"
 		],
 		stock: 18,
 		description: "Depósito de agua de 100L con filtro incorporado para sistemas de riego. Mantiene el agua limpia y libre de sedimentos. Ideal para uso en exteriores.",
