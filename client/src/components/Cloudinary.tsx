@@ -8,8 +8,9 @@ interface CloudinaryResponse {
 
 const Cloudinary: React.FC = () => {
 
-    const preset_name = "yu1h90st";                         //16 Pegamos el "name" rescatado en el punto 24
-    const cloud_name = "drlqmol4c"                          //16.2 Pegamos el cloud_name rescatado en punto 20
+    // Obtenemos las credenciales de Cloudinary desde las variables de entorno
+    const preset_name = import.meta.env.VITE_CLOUDINARY_PRESET_NAME || "yu1h90st";
+    const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || "drlqmol4c";
 
     const [image, setImage] = useState<string>('');       //12 Creamos estado local que guarde la url de la imagen subida
     const [loading, setLoading] = useState<boolean>(false) //7 Creamos un estado local con valor incial boolean "false" para saber si la imagen esta cargando.
