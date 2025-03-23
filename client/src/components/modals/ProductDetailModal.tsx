@@ -27,19 +27,31 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, isOpen
   // Estado para controlar la imagen activa
   const [activeImageIndex, setActiveImageIndex] = React.useState(0);
 
-  // Efecto para bloquear el scroll cuando el modal está abierto
+  // Efecto para bloquear el scroll cuando el modal está abierto y manejar la tecla Escape
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+
+      // Función para manejar el evento de teclado
+      const handleEscapeKey = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          onClose();
+        }
+      };
+
+      // Agregar event listener para la tecla Escape
+      document.addEventListener('keydown', handleEscapeKey);
+
+      // Cleanup function
+      return () => {
+        document.body.style.overflow = 'auto';
+        document.removeEventListener('keydown', handleEscapeKey);
+      };
     } else {
       document.body.style.overflow = 'auto';
+      return undefined;
     }
-
-    // Cleanup function
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   // Si el modal no está abierto, no renderizamos nada
   if (!isOpen) return null;
