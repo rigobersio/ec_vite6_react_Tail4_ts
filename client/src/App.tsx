@@ -9,6 +9,7 @@ import GalleryPage from './pages/GalleryPage';
 import ProfilePage from './pages/ProfilePage';
 import PaymentGateway from './pages/PaymentGateway';
 import PanelAdmin from './pages/PanelAdmin';
+import ProductAdminPage from './pages/ProductAdminPage';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import AdminRoute from './components/AdminRoute';
 import Error from './components/Error';
@@ -58,6 +59,15 @@ function App() {
       errorElement: <Error />
     },
     {
+      path: "/admin/products",
+      element: (
+        <MainLayout>
+          <ProductAdminPage />
+        </MainLayout>
+      ),
+      errorElement: <Error />
+    },
+    {
       element: <ProtectedRoutes />,
       children: [
         {
@@ -95,6 +105,15 @@ function App() {
               element: (
                 <MainLayout>
                   <PanelAdmin />
+                </MainLayout>
+              ),
+              errorElement: <Error />
+            },
+            {
+              path: "/admin/products",
+              element: (
+                <MainLayout>
+                  <ProductAdminPage />
                 </MainLayout>
               ),
               errorElement: <Error />
